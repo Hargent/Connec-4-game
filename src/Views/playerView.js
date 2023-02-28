@@ -15,7 +15,8 @@ class PlayerView {
 				const dataArr = [...new FormData(form)];
 				const data = Object.fromEntries(dataArr);
 
-				handler(data);
+				handler(data, true);
+				this.classList.toggle("hidden");
 			} catch (err) {
 				console.error(err);
 			}
@@ -31,6 +32,7 @@ class PlayerView {
 	}
 	_generateHtml() {
 		return `
+		<h1>Enter Players' details</h1>
 		<div class="player__details">
 			<form class="players__form">
 				<div class="player player1">

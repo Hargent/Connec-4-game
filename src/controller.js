@@ -25,8 +25,13 @@ const controlGameStart = data => {
 	gameView.render();
 	playerView.render();
 };
-const controlPlayerInput = data => {
-	// console.log(data);
+const controlPlayerInput = (data, set) => {
+	model.savePlayerInputs(data, set);
+	console.log(model.state.players.set);
+	if (!model.state.players.set) return;
+	modalView.render();
+	// add players names and avartars
+	// gameView.update();
 };
 const init = () => {
 	modalView.modalInputHandler(controlCreateBoard);

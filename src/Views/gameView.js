@@ -23,7 +23,7 @@ class GameView {
 	}
 	_generateHtml() {
 		return `<section class="game__view">
-	<h1>Enter Players' details</h1>
+	
 				</section>`;
 	}
 }
