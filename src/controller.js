@@ -12,9 +12,8 @@ import runtime from "regenerator-runtime";
 
 const controlCreateBoard = data => {
 	model.saveBoardInputs(data);
-	boardView._createBoard(model.state.board);
-	const gameData = boardView._generateGameData();
-	console.log(gameData);
+	if (!model.state.board.create) return;
+	boardView.render(model.state.board);
 };
 const controlDiscClick = target => {
 	// console.log(target);
@@ -25,9 +24,9 @@ const controlGameStart = data => {
 	gameView.render();
 	playerView.render();
 };
-const controlPlayerInput = (data, set) => {
-	model.savePlayerInputs(data, set);
-	console.log(model.state.players.set);
+const controlPlayerInput = data => {
+	model.savePlayerInputs(data);
+
 	if (!model.state.players.set) return;
 	modalView.render();
 	// add players names and avartars

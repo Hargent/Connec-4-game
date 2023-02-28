@@ -14,8 +14,9 @@ class PlayerView {
 
 				const dataArr = [...new FormData(form)];
 				const data = Object.fromEntries(dataArr);
+				data.set = true;
 
-				handler(data, true);
+				handler(data);
 				this.classList.toggle("hidden");
 			} catch (err) {
 				console.error(err);

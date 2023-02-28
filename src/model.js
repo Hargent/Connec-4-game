@@ -41,8 +41,9 @@ const state = {
 const saveBoardInputs = data => {
 	state.board.width = data.width;
 	state.board.height = data.height;
+	state.board.create = data.create;
 };
-const savePlayerInputs = (data, set) => {
+const savePlayerInputs = data => {
 	(state.players.name = {
 		home: data.home,
 		away: data.away,

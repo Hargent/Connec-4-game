@@ -1,25 +1,28 @@
 class ModalView {
-	_parentElement = document.querySelector(".board__modal");
+	_parentElement = document.querySelector(".modal");
 
 	modalInputHandler(handler) {
-		this._parentElement.addEventListener("click", function (e) {
-			try {
-				const createBtn = e.target.closest(".board__create__btn");
+		try {
+			this._parentElement.addEventListener("click", function (e) {
+				const createBtn = e.target;
 				if (!createBtn) return;
+
 				const form = this.querySelector(".board__inputs");
 				const dataArr = [...new FormData(form)];
 				const data = Object.fromEntries(dataArr);
+
+				data.create = true;
 				handler(data);
 				this.classList.toggle("hidden");
-			} catch (err) {
-				console.error(err);
-			}
-		});
+			});
+		} catch (err) {
+			console.error(err);
+		}
 	}
 	render() {
 		this._clear();
 		const HTML = this._generateHtml();
-		this._parentElement.classList.toggle("hidden");
+		// this._parentElement.classList.toggle("hidden");
 		this._parentElement.insertAdjacentHTML("afterbegin", HTML);
 	}
 	_clear() {
@@ -28,6 +31,7 @@ class ModalView {
 
 	_generateHtml() {
 		return `
+		<div class="board__modal">
 				<h4>Enter the board dimension</h4>
 				<form class="board__inputs">
 					<div class="board__input">
@@ -70,7 +74,7 @@ class ModalView {
 				</form>
 
 				<button class="btn" type="submit">Create Board</button>
-			`;
+			</div>`;
 	}
 }
 

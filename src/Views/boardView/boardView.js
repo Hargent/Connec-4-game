@@ -7,25 +7,30 @@ import gridArea from "../Algorithm/label";
 
 class BoardView {
 	_parentElement = document.querySelector(".board");
+	_boardView = document.querySelector(".board__view");
+	_boardTitle = this._parentElement.querySelector(".board__title");
+	_boardModal = this._parentElement.querySelector(".board__modal");
 	_data;
 
-	_createBoard(data) {
-		// console.log(data);
+	render(data) {
+		console.log(data);
 		this._data = data;
-		const boardTitle = this._parentElement.querySelector(".board__title");
-		boardTitle.innerHTML = `${this._data.width} x ${this._data.height} board`;
 
-		const boardView = this._parentElement.querySelector(".board__view");
-		const labels = gridArea(this._data.width, this._data.height);
-		const html = this._generateHTML(labels);
+		this._updateBoard();
+		const html = this._generateHTML();
 
-		boardView.insertAdjacentHTML("afterbegin", html);
-		const boardModal = this._parentElement.querySelector(".board__modal");
-		boardModal.classList.toggle("hidden");
-		boardView.style.gridTemplateColumns = `repeat(${+this._data
+		this._boardView.insertAdjacentHTML("afterbegin", html);
+	}
+	_updateBoard() {
+		this._boardTitle.innerHTML = `${this._data.width} x ${this._data.height} board`;
+		this._boardModal.classList.toggle("hidden");
+		this._boardView.style.gridTemplateColumns = `repeat(${+this._data
 			.width},1fr)`;
 	}
-	_generateHTML(labels) {
+
+	_generateHTML() {
+		const labels = gridArea(this._data.width, this._data.height);
+
 		const HTML = labels
 			.map((label, index) => {
 				return `<div class="">
