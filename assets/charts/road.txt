@@ -1,0 +1,17 @@
+Functions
+    Allows two players
+    Turn based 
+    7/6 board dimension
+    game start btn
+    display winner after 4 uninterrupted connects
+    game tie when board is full
+    game reset btn
+
+//!SECTION
+    optional additions
+    
+    player name edit(optional)
+    player color edit(optional)
+    Avatar edit(optional)
+    About game(optional)
+    select board dimension(optional)

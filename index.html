@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Connect-4</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="src/sass/main.scss" />
+
+		<script defer type="module" src="src/controller.js"></script>
+	</head>
+
+	<body class="game">
+		<section class="game__view">
+			<div class="game__landing-view">
+				<h1>Welcome to connect 4</h1>
+				<h4>Ready to battle ?</h4>
+				<img src="./assets/connect4.gif" alt="Connect 4" />
+				<button type="submit" class="btn play__now">Play now</button>
+			</div>
+			<div class="game__status hidden">
+				<div class="game__winner__flag"></div>
+				<!--<p class="active__player">
+					player one, please select a coin spot
+				</p>-->
+			</div>
+			<form class="player__details hidden">
+				<div class="player player1">
+					<h3>player 1</h3>
+					<input
+						type="text"
+						name="home"
+						class="player__name"
+						id="player-1-name"
+						placeholder="Enter your name" />
+					<label for="player-1-name">Player Name</label>
+					<input
+						type="text"
+						class="player__color"
+						name="homeColor"
+						id="player-1-color"
+						placeholder="choose a color" />
+					<label for="player-1-color">Player Color </label>
+				</div>
+				<div class="player player2">
+					<h3>player 2</h3>
+					<input
+						type="text"
+						class="player__name"
+						name="away"
+						id="player-2-name"
+						placeholder="Enter your name" />
+					<label for="player-2-name">Player Name</label>
+					<input
+						type="text"
+						class="player__color"
+						name="awayColor"
+						id="player-2-color"
+						placeholder="choose a color" />
+					<label for="player-2-color">Player Color</label>
+				</div>
+				<button type="submit" class="btn game__start">
+					Start game
+				</button>
+			</form>
+		</section>
+
+		<section class="board hidden">
+			<h3 class="board__title">board</h3>
+
+			<div class="board__view">
+				<!--<div class="">
+					<input type="input" class="board__disc" id="disc" />
+					<label for="disc">[row,column]</label>
+				</div>
+				<div class="">
+					<input type="input" class="board__disc" id="disc-1" />
+					<label for="disc-1">[row,column]</label>
+				</div>
+				<div class="">
+					<input type="input" class="board__disc" id="disc-2" />
+					<label for="disc-2">[row,column]</label>
+				</div>
+				<div class="">
+					<input type="input" class="board__disc" id="disc-3" />
+					<label for="disc-3">[row,column]</label>
+				</div>
+				<div class="">
+					<input type="input" class="board__disc" id="disc-4" />
+					<label for="disc-4">[row,column]</label>
+				</div>
+				<div class="">
+					<input type="input" class="board__disc" id="disc-5" />
+					<label for="disc-5">[row,column]</label>
+				</div>
+				<div class="">
+					<input type="input" class="board__disc" id="disc-6" />
+					<label for="disc-6">[row,column]</label>
+				</div>
+				<div class="">
+					<input type="input" class="board__disc" id="disc-7" />
+					<label for="disc-7">[row,column]</label>
+				</div>
+				<div class="">
+					<input type="input" class="board__disc" id="disc-8" />
+					<label for="disc-8">[row,column]</label>
+				</div>
+				<div class="">
+					<input type="input" class="board__disc" id="disc-9" />
+					<label for="disc-9">[row,column]</label>
+				</div>
+				<div class="">
+					<input type="input" class="board__disc" id="disc-10" />
+					<label for="disc-10">[row,column]</label>
+				</div>
+				<div class="">
+					<input type="input" class="board__disc" id="disc-5" />
+					<label for="disc-5">[row,column]</label>
+				</div>
+				<div class="">
+					<input type="input" class="board__disc" id="disc-11" />
+					<label for="disc-11">[row,column]</label>
+				</div>
+				<div class="">
+					<input type="input" class="board__disc" id="disc-12" />
+					<label for="disc-12">[row,column]</label>
+				</div>
+				<div class="">
+					<input type="input" class="board__disc" id="disc-13" />
+					<label for="disc-13">[row,column]</label>
+				</div>
+				<div class="">
+					<input type="input" class="board__disc" id="disc-14" />
+					<label for="disc-14">[row,column]</label>
+				</div>
+				<div class="">
+					<input type="input" class="board__disc" id="disc-15" />
+					<label for="disc-15">[row,column]</label>
+				</div>-->
+			</div>
+			<div class="board__modal hidden">
+				<h4>Enter the board dimension</h4>
+				<form class="board__inputs">
+					<div class="board__input">
+						<input
+							step="1"
+							min="6"
+							value="7"
+							max="15"
+							required
+							name="width"
+							type="number"
+							class="board__width"
+							id="board-width"
+							placeholder="width" />
+						<label for="board-width" class="label">Width</label>
+					</div>
+					<div class="board__input">
+						<input
+							step="1"
+							min="6"
+							max="15"
+							value="6"
+							required
+							name="height"
+							type="number"
+							class="board__width"
+							id="board-height"
+							placeholder="height" />
+						<label for="board-height" class="label">Height</label>
+					</div>
+					<div class="board__piece">
+						<h4>Select a game piece shape</h4>
+						<select name="piece" id="board__piece" title="Select">
+							<option value="circle">Circle</option>
+							<option value="square">Square</option>
+							<option value="Triangle">Triangle</option>
+							<option value="kite">Kite</option>
+						</select>
+					</div>
+				</form>
+
+				<button class="btn" type="submit">Create Board</button>
+				<button type="submit" class="btn game__reset">
+					Reset game
+				</button>
+			</div>
+		</section>
+		<!--<button type="button" class="game__btn">Reset game</button>-->
+	</body>
+</html>

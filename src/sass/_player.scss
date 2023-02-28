@@ -1,0 +1,59 @@
+.player__details {
+	width: 60%;
+	background-image: var(--gradient-2);
+	padding: 2rem;
+}
+.players__form {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+
+	gap: 2rem;
+
+	.player {
+		// display: grid;
+		// grid-template-rows: auto;
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		row-gap: 1rem;
+		input,
+		select {
+			padding: 0.5rem 0;
+			border: none;
+			outline: none;
+			border-radius: 2px;
+			text: {
+				align: center;
+				transform: uppercase;
+				decoration: italic;
+			}
+
+			font-size: 0.7rem;
+		}
+		label {
+			transform: translateY(1rem);
+			transition: var(--transition);
+			text-align: left;
+		}
+
+		input:active,
+		input:focus,
+		select:active,
+		select:focus {
+			border: 1px solid var(--secondary-color);
+		}
+
+		input:active label,
+		input:focus label,
+		select:active label,
+		select:focus label {
+			transform: translateY(-1rem);
+		}
+	}
+	& .game__start {
+		grid-column: 1/-1;
+		width: 40%;
+		justify-self: center;
+	}
+}

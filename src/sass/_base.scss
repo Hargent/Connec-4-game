@@ -1,0 +1,52 @@
+:root {
+	--primary-color: #1be7ff;
+	--secondary-color: #6eeb83;
+	--tertiary-color: #e8aa14;
+	--light-color: #e4ff1a;
+	--dark-color: #ff5714;
+	--gradient: linear-gradient(to bottom right, #e4ff1a, #ff5714);
+	--gradient-1: linear-gradient(
+		to bottom right,
+		var(--primary-color),
+		var(--secondary-color)
+	);
+	--gradient-2: linear-gradient(to bottom right, #e4ff1a, #6eeb83);
+	--transition: all 0.5s;
+	--shadow: 0.4;
+}
+
+*,
+*::before,
+*::after {
+	padding: 0;
+	margin: 0;
+	box-sizing: inherit;
+}
+
+html {
+	box-sizing: border-box;
+	font-size: 100%; //1rem= 16px
+}
+body {
+	box-sizing: inherit;
+	height: 100vh;
+	// background-color: var(--primary-color);
+}
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.hidden {
+	opacity: 0;
+	visibility: hidden;
+}
+
+/*!SECTION"watch:sass": "sass sass/main.scss css/style.css -w",
+		"devserver": "live-server",
+		"dev": "npm-run-all --parallel watch:sass devserver",
+		"compile:sass": "sass sass/main.scss css/style.comp.css",
+		"prefix:css": "postcss --use autoprefixer -b 'last 10 versions' css/style.comp.css -o css/style.prefix.css",
+		"compress:css": "sass css/style.prefix.css css/style.css --style=compressed",
+		"build:css": "npm-run-all compile:sass concat:css prefix:css compress:css",*/
