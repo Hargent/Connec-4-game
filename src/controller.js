@@ -21,7 +21,7 @@ const controlDiscClick = target => {
 const controlGameStart = data => {
 	model.state.game.start = data;
 	if (!model.state.game.start) return;
-	gameView.render();
+	// gameView.render();
 	playerView.render();
 };
 const controlPlayerInput = data => {

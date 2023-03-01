@@ -14,6 +14,7 @@ class PlayerView {
 
 				const dataArr = [...new FormData(form)];
 				const data = Object.fromEntries(dataArr);
+
 				data.set = true;
 
 				handler(data);

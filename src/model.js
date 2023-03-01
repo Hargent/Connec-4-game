@@ -52,7 +52,7 @@ const savePlayerInputs = data => {
 			homeColor: data.homeColor,
 			awayColor: data.awayColor,
 		}),
-		(state.players.set = set);
+		(state.players.set = data.set);
 };
 // const updateBoardState = data => {};
 export { state, saveBoardInputs, savePlayerInputs };

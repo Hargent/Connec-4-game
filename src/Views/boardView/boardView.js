@@ -1,6 +1,5 @@
 //SECTION -IMPORTS
 
-import PossibleCombination from "../Algorithm/combination";
 import gridArea from "../Algorithm/label";
 
 // import View from "./View";
@@ -9,11 +8,9 @@ class BoardView {
 	_parentElement = document.querySelector(".board");
 	_boardView = document.querySelector(".board__view");
 	_boardTitle = this._parentElement.querySelector(".board__title");
-	_boardModal = this._parentElement.querySelector(".board__modal");
 	_data;
 
 	render(data) {
-		console.log(data);
 		this._data = data;
 
 		this._updateBoard();
@@ -23,7 +20,6 @@ class BoardView {
 	}
 	_updateBoard() {
 		this._boardTitle.innerHTML = `${this._data.width} x ${this._data.height} board`;
-		this._boardModal.classList.toggle("hidden");
 		this._boardView.style.gridTemplateColumns = `repeat(${+this._data
 			.width},1fr)`;
 	}
