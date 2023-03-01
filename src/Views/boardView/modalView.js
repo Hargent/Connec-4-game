@@ -4,9 +4,9 @@ class ModalView {
 	modalInputHandler(handler) {
 		try {
 			this._parentElement.addEventListener("click", function (e) {
-				const createBtn = e.target;
+				const createBtn = e.target.querySelector(".btn")7;
 				if (!createBtn) return;
-
+				console.log(createBtn);
 				const form = this.querySelector(".board__inputs");
 				const dataArr = [...new FormData(form)];
 				const data = Object.fromEntries(dataArr);

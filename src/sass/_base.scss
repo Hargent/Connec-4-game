@@ -41,6 +41,7 @@ body {
 .hidden {
 	opacity: 0;
 	visibility: hidden;
+	display: none !important;
 }
 
 /*!SECTION"watch:sass": "sass sass/main.scss css/style.css -w",
