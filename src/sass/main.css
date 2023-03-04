@@ -194,13 +194,7 @@ body {
   align-items: center;
   justify-content: center;
 }
-.game__landing-view {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.game__landing-view > *:not(:last-child) {
+.game__view > *:not(:last-child) {
   margin-bottom: 4rem;
 }
 
@@ -208,21 +202,27 @@ body {
   width: 60%;
   background-image: var(--gradient-2);
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
 }
-
-.players__form {
+.player__details > *:not(:last-child) {
+  margin-bottom: 2.5rem;
+}
+.player__details .players__form {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
 }
-.players__form .player {
+.player__details .players__form .player {
   display: flex;
   flex-direction: column;
   align-items: center;
   row-gap: 1rem;
 }
-.players__form .player input,
-.players__form .player select {
+.player__details .players__form .player input,
+.player__details .players__form .player select {
   padding: 0.5rem 0;
   border: none;
   outline: none;
@@ -233,25 +233,26 @@ body {
           text-decoration: italic;
   font-size: 0.7rem;
 }
-.players__form .player label {
+.player__details .players__form .player label {
   transform: translateY(1rem);
   transition: var(--transition);
   text-align: left;
 }
-.players__form .player input:active,
-.players__form .player input:focus,
-.players__form .player select:active,
-.players__form .player select:focus {
+.player__details .players__form .player input:active,
+.player__details .players__form .player input:focus,
+.player__details .players__form .player select:active,
+.player__details .players__form .player select:focus {
   border: 1px solid var(--secondary-color);
 }
-.players__form .player input:active label,
-.players__form .player input:focus label,
-.players__form .player select:active label,
-.players__form .player select:focus label {
+.player__details .players__form .player input:active label,
+.player__details .players__form .player input:focus label,
+.player__details .players__form .player select:active label,
+.player__details .players__form .player select:focus label {
   transform: translateY(-1rem);
 }
-.players__form .game__start {
+.player__details .game__start {
   grid-column: 1/-1;
   width: 40%;
   justify-self: center;
+  align-self: center;
 }/*# sourceMappingURL=main.css.map */

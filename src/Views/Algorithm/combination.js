@@ -42,7 +42,7 @@ const getAllPointCombos = dimensions => {
 			}
 		}
 	}
-	return combinations.length;
+	return combinations;
 };
-console.log(getAllPointCombos([6, 7]));
-// export default getAllPointCombos;
+// console.log(getAllPointCombos([6, 7]));
+export default getAllPointCombos;

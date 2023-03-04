@@ -1,4 +1,4 @@
-import getAllPointCombos from "./Algorithm/results";
+import getAllPointCombos from "./Algorithm/combination";
 import gridArea from "./Algorithm/label";
 
 /**

@@ -1,7 +1,7 @@
 //SECTION - IMPORTS
 
 class PlayerView {
-	_parentElement = document.querySelector(".game__view");
+	_parentElement = document.querySelector(".game");
 
 	playerInputHandler(handler) {
 		this._parentElement.addEventListener("click", function (e) {
@@ -15,10 +15,7 @@ class PlayerView {
 				const dataArr = [...new FormData(form)];
 				const data = Object.fromEntries(dataArr);
 
-				data.set = true;
-
 				handler(data);
-				this.classList.toggle("hidden");
 			} catch (err) {
 				console.error(err);
 			}
@@ -34,8 +31,8 @@ class PlayerView {
 	}
 	_generateHtml() {
 		return `
-		<h1>Enter Players' details</h1>
 		<div class="player__details">
+		<h1>Enter Players' details</h1>
 			<form class="players__form">
 				<div class="player player1">
 					<h3>player 1</h3>

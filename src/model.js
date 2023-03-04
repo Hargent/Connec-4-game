@@ -4,9 +4,9 @@ const state = {
 			create: false,
 			dimensions: [6, 7],
 			labels: [],
-			winningCombos: [],
-			pieces: "circle",
-			theme: "purple",
+			combos: [],
+			pieces: "",
+			theme: "",
 		},
 		isStart: false,
 		isDraw: false,
@@ -22,34 +22,58 @@ const state = {
 		homeTurn: false,
 		homeWin: null,
 		home: {
-			name: "home",
+			id: "home",
+			name: "",
 			avatar: "HM",
 			color: "blue",
 			inputs: [],
 		},
 		away: {
-			name: "away",
+			id: "away",
+			name: "",
 			avatar: "AY",
 			color: "green",
 			inputs: [],
 		},
 	},
 };
-const saveBoardInputs = data => {
-	state.board.width = data.width;
-	state.board.height = data.height;
-	state.board.create = data.create;
+const savePlayerDetails = data => {
+	if (state.players.set) {
+		throw new Error(`***Players' details already set***`);
+	}
+	try {
+		state.players.home.name = data.home;
+		state.players.home.color = data.homeColor;
+		state.players.away.name = data.away;
+		state.players.away.color = data.awayColor;
+		state.players.set = !state.players.set;
+	} catch (err) {
+		throw new Error(`****${err.message}****`);
+	}
 };
-const savePlayerInputs = data => {
-	(state.players.name = {
-		home: data.home,
-		away: data.away,
-	}),
-		(state.players.color = {
-			homeColor: data.homeColor,
-			awayColor: data.awayColor,
-		}),
-		(state.players.set = data.set);
+const saveBoardDetails = data => {
+	if (state.game.data.create) {
+		throw new Error(`***Game details already Generated***`);
+	}
+	const gameState = state.game.data;
+	(gameState.dimensions = [data.width, data.height]),
+		(gameState.labels = data.algoData[0]),
+		(gameState.combos = data.algoData[1]),
+		(gameState.pieces = data.pieces),
+		(gameState.create = !gameState.create);
+
+	if (gameState.create) {
+		state.game.isStart = !state.game.isStart;
+	}
+};
+const generateGameData = () => {
+	if (!state.game.isStart) return;
+	const playerData = state.players;
+	const gameData = state.game;
+	return {
+		game: gameData,
+		players: playerData,
+	};
 };
 
 //
@@ -173,4 +197,4 @@ const savePlayerInputs = data => {
 // 	};
 // };
 // const updateBoardState = data => {};
-export { state, saveBoardInputs, savePlayerInputs };
+export { state, savePlayerDetails, saveBoardDetails, generateGameData };
