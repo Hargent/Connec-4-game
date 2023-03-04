@@ -13,6 +13,7 @@ class GameView {
 		});
 	}
 	render() {
+		this._clear();
 		const HTML = this._generateHtml();
 
 		this._parentElement.insertAdjacentHTML("afterbegin", HTML);
