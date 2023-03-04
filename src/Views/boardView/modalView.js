@@ -12,6 +12,8 @@ class ModalView {
 				const data = Object.fromEntries(dataArr);
 
 				data.create = true;
+				console.log(data);
+
 				handler(data);
 				this.classList.toggle("hidden");
 			});
@@ -20,7 +22,7 @@ class ModalView {
 		}
 	}
 	render() {
-		this._clear();
+		// this._clear();
 		const HTML = this._generateHtml();
 		// this._parentElement.classList.toggle("hidden");
 		this._parentElement.insertAdjacentHTML("afterbegin", HTML);

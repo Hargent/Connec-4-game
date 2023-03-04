@@ -11,6 +11,8 @@ import playerView from "./Views/playerView";
 import runtime from "regenerator-runtime";
 
 const controlCreateBoard = data => {
+	console.log(data);
+
 	model.saveBoardInputs(data);
 	if (!model.state.board.create) return;
 	boardView.render(model.state.board);
@@ -32,6 +34,33 @@ const controlPlayerInput = data => {
 	// add players names and avartars
 	// gameView.update();
 };
+
+// /**
+//  * Generates the Game Data from the State storage in the model module
+//  */
+// const generateGameData = () => {
+// 	const dimensions = model.state.game.data.dimensions;
+// 	const gameData = gameAlgo._gameAlgo(dimensions);
+// 	model.state.game.data.labels = gameData[0];
+// 	model.state.game.data.winningCombos = gameData[1];
+
+// 	playerView._getPlayerData(model.state.player);
+// 	gameView._getGameData(model.state);
+// };
+// /**
+//  *
+//  * @param {boolean} restart
+//  * @returns Void only if the game is not to be restarted
+//  */
+// const controlRestart = restart => {
+// 	if (!restart) return;
+// 	model.restartGame();
+// 	updateData();
+// 	init();
+// };
+/**
+ * Initialize the Beginning of the game
+ */
 const init = () => {
 	modalView.modalInputHandler(controlCreateBoard);
 	discView.discClickHandler(controlDiscClick);
@@ -39,3 +68,6 @@ const init = () => {
 	playerView.playerInputHandler(controlPlayerInput);
 };
 init();
+
+// function that swap cyurrent playrer
+// function that places color
