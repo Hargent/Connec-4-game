@@ -67,7 +67,7 @@ const saveBoardDetails = data => {
 	}
 };
 const generateGameData = () => {
-	if (!state.game.isStart) return;
+	if (!state.game.isStart && !state.game.isEnd) return;
 	const playerData = state.players;
 	const gameData = state.game;
 	return {
@@ -93,7 +93,6 @@ const isCOntains = (arr, chk) => {
 			for (let i = 0; i < ar.length; i++) {
 				isTrue.push(ar[i] === chk[i]);
 			}
-			if (isTrue.every(el => el === true)) console.log(arr);
 			return isTrue.every(el => el === true);
 		}
 		return false;
@@ -105,6 +104,7 @@ const isCOntains = (arr, chk) => {
  * @returns Void Only when the target already exist in the main array
  */
 const saveInputs = target => {
+	if (state.game.isEnd) return;
 	const isSaved = state.players.homeTurn
 		? isCOntains(state.players.home.inputs, target)
 		: isCOntains(state.players.away.inputs, target);
@@ -129,7 +129,6 @@ const checkWin = () => {
 		? state.players.home.inputs
 		: state.players.away.inputs;
 
-	console.log(state.game.data.combos);
 	return state.game.data.combos.some(combination => {
 		return combination.every(index => {
 			return isCOntains(target, index);
@@ -151,25 +150,23 @@ const checkDraw = () => {
  * @returns Void only when the game ends and there and no more turns
  */
 const gameStatus = () => {
+	if (state.game.isEnd) return;
 	let currentPlayer;
 	if (state.players.homeTurn === null) return;
 	state.players.homeTurn
-		? (currentPlayer = state.players.away.name)
-		: (currentPlayer = state.players.home.name);
+		? (currentPlayer = state.players.away.id)
+		: (currentPlayer = state.players.home.id);
 
 	if (checkWin()) {
-		console.log("win");
 		state.players.homeWin = currentPlayer;
 		state.players.homeTurn = null;
 		state.game.isEnd = true;
 	} else if (checkDraw()) {
-		console.log("draw");
 		state.players.homeWin = "draw";
 		state.players.homeTurn = null;
 		state.game.isEnd = true;
 		state.game.isDraw = true;
 	}
-	console.log("keep playing");
 };
 /**
 //  * Resets the game state to the initial state

@@ -70,13 +70,13 @@ class GameView {
 
 		const html_1 = `<section class="board">
 		
-							<h3 class="board__title">${this._data.data.dimensions[0]} X ${this._data.data.dimensions[1]}board</h3>
+							<h3 class="board__title">${this._data.data.dimensions[0]} X ${this._data.data.dimensions[1]} board</h3>
 							<div class="board__view">`;
 		const html_2 = labels
 			.map((label, index) => {
 				return `<div class="">
 							<label for="disc-15">[${label}]</label>
-							<input type="button" class="board__disc" data-position=(${label[0]},${label[1]}) />
+							<input type="button" class="board__disc" data-position=${label[0]},${label[1]} />
 						</div>`;
 			})
 			.join("");
@@ -146,4 +146,24 @@ class GameView {
 				`;
 	}
 }
+
+// /**
+//  *
+//  * @param {()=>{}} handlerON A controller handler function that is called to handle the hover-ON event
+//  * @param { ()=>{}} handlerOUT A controller handler function that is called to handle the hover-OFF event
+//  */
+// gameHoverHandler(handlerON, handlerOUT) {
+// 	this._parentElement.addEventListener("mouseover", e => {
+// 		const cellBtn = e.target.closest(".cell");
+// 		if (!cellBtn) return;
+
+// 		handlerON(cellBtn);
+// 	});
+// 	this._parentElement.addEventListener("mouseout", e => {
+// 		const cellBtn = e.target.closest(".cell");
+// 		if (!cellBtn) return;
+
+// 		handlerOUT(cellBtn);
+// 	});
+// }
 export default new GameView();

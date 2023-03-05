@@ -18,6 +18,15 @@ const generateGameData = () => {
 	gameView._getGameData(gameData.game);
 };
 
+/**
+ * Updates the game data  used by the Views
+ */
+const updateData = () => {
+	const gameData = model.generateGameData();
+	playerView._getPlayerData(gameData.players);
+	gameView._getGameData(gameData.game);
+};
+
 const AIGameControl = () => {
 	gameView.renderStart();
 };
@@ -45,9 +54,26 @@ const controlCreateBoard = data => {
 const controlGamePlay = target => {
 	model.saveInputs(target);
 	model.gameStatus();
-	// playerView.update();
-	console.log(model.state.game.isEnd);
+
+	if (model.state.game.isEnd) {
+		console.log("End-Game");
+	}
+	updateData();
 };
+// /**
+//  * Controls the hover event response during game
+//  * @param {Number[]} target
+//  */
+// const controlGameHoverON = target => {
+// 	playerView.setBoardHoverClass(target);
+// };
+// /**
+//  * Controls the hover removal event response during game
+//  * @param {Number[]} target
+//  */
+// const controlGameHoverOUT = target => {
+// 	playerView.removeBoardHoverClass(target);
+// };
 
 /**
 //  *

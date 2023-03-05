@@ -3,9 +3,14 @@
 class PlayerView {
 	_parentElement = document.querySelector(".game");
 	_data;
+	_currentPlayer;
 
 	_getPlayerData(data) {
 		this._data = data;
+
+		this._currentPlayer = this._data.homeTurn
+			? this._data.home.id
+			: this._data.away.id;
 	}
 
 	// HANDLERS
@@ -32,7 +37,12 @@ class PlayerView {
 			try {
 				const disc = e.target.closest(".board__disc");
 				if (!disc) return;
-				const target = disc.dataset.position;
+
+				const target = disc.dataset.position
+					.split(",")
+					.map(str => parseInt(str));
+
+				console.log(target);
 				handler(target);
 			} catch (err) {
 				console.error(err);
@@ -54,6 +64,7 @@ class PlayerView {
 	}
 	// GENERATORS
 	_generateBoardHtml() {
+		console.log(this._currentPlayer);
 		return `<div class="players__display">
 					<div>
 						<img src="#" alt="${this._data.home.avatar}">
@@ -62,7 +73,7 @@ class PlayerView {
 								? this._data.home.name
 								: this._data.home.id
 						}</h1>
-					${!this._data.homeTurn ? "<h1>Flag</h1>" : ""}
+					${this._currentPlayer === "home" ? "<h1>Flag</h1>" : ""}
 					</div>
 					<div>
 					<img src="#" alt="${this._data.away.avatar}">
@@ -71,7 +82,7 @@ class PlayerView {
 							? this._data.away.name
 							: this._data.away.id
 					}</h1>
-					${!this._data.homeTurn ? "" : "<h1>Flag</h1>"}
+					${this._currentPlayer === "away" ? "" : "<h1>Flag</h1>"}
 					</div>
 				</div>`;
 	}
@@ -130,5 +141,49 @@ class PlayerView {
 			`;
 	}
 }
+
+// /**
+//  *
+//  * @param {Number[]} target 2D coordinates of a point of event
+//  * @returns Void Only when cells are clicked twice
+//  */
+// placeMark(target) {
+// 	const cell = document.querySelector(
+// 		`[data-cell="${target.join(",")}"]`
+// 	);
+
+// 	if (cell?.classList.length > 2 || this._data.homeWin !== null) {
+// 		cell?.classList.add("disabled");
+// 		return;
+// 	}
+// 	cell.classList.add(this._currentPlayer);
+// }
+// /**
+//  * Handles hovering event on cells
+//  * @param {Number[]} target  2D coordinates of a point of event
+//  * @returns Void Only when the game is over
+//  */
+// setBoardHoverClass(target) {
+// 	if (this._data.homeWin !== null) return;
+
+// 	target.classList.remove(`${this._data.home.name}-hover`);
+// 	target.classList.remove(`${this._data.away.name}-hover`);
+// 	if (this._data.homeTurn) {
+// 		target.classList.add(`${this._data.home.name}-hover`);
+// 	} else {
+// 		target.classList.add(`${this._data.away.name}-hover`);
+// 	}
+// }
+// /**
+//  * Handles the removal hovering event on cells
+//  * @param {Number[]} target  2D coordinates of a point of event
+//  * @returns Void Only when the game is over
+//  */
+// removeBoardHoverClass(target) {
+// 	if (this._data.homeWin !== null) return;
+
+// 	target.classList.remove(`${this._data.home.name}-hover`);
+// 	target.classList.remove(`${this._data.away.name}-hover`);
+// }
 
 export default new PlayerView();
