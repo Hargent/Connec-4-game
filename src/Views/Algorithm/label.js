@@ -35,10 +35,17 @@
  * @returns{[Number[]]} Returns 2D labels for each grid item
  */
 const gridArea = dimensions => {
-	return [...Array(dimensions[0] * dimensions[1])].map((_, i) => [
+	if (dimensions[0] - dimensions[1] < 0) {
+		console.log("not equal pop width");
+	}
+	if (dimensions[0] - dimensions[1] > 0) {
+		console.log("not equal pop height");
+	}
+	return [...Array(dimensions[0] * dimensions[0])].map((_, i) => [
 		i % dimensions[0],
-		Math.floor(i / dimensions[1]),
+		Math.floor(i / dimensions[0]),
 	]);
 };
 // console.log(gridArea(7, 7));
-export default gridArea;
+console.log(gridArea([7, 6]));
+// export default gridArea;

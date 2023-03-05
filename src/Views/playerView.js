@@ -2,8 +2,14 @@
 
 class PlayerView {
 	_parentElement = document.querySelector(".game");
+	_data;
 
-	playerInputHandler(handler) {
+	_getPlayerData(data) {
+		this._data = data;
+	}
+
+	// HANDLERS
+	playerDetailsHandler(handler) {
 		this._parentElement.addEventListener("click", function (e) {
 			try {
 				e.preventDefault();
@@ -21,13 +27,53 @@ class PlayerView {
 			}
 		});
 	}
+	playerInputHandler(handler) {
+		this._parentElement.addEventListener("click", e => {
+			try {
+				const disc = e.target.closest(".board__disc");
+				if (!disc) return;
+				const target = disc.dataset.position;
+				handler(target);
+			} catch (err) {
+				console.error(err);
+			}
+		});
+	}
+	// RENDERS
 	render() {
 		this._clear();
 		const HTML = this._generateHtml();
 		this._parentElement.insertAdjacentHTML("afterbegin", HTML);
 	}
+	renderBoard() {
+		const HTML = this._generateBoardHtml();
+		this._parentElement.insertAdjacentHTML("afterbegin", HTML);
+	}
 	_clear() {
 		this._parentElement.innerHTML = "";
+	}
+	// GENERATORS
+	_generateBoardHtml() {
+		return `<div class="players__display">
+					<div>
+						<img src="#" alt="${this._data.home.avatar}">
+						<h1>${
+							this._data.home.name !== ""
+								? this._data.home.name
+								: this._data.home.id
+						}</h1>
+					${!this._data.homeTurn ? "<h1>Flag</h1>" : ""}
+					</div>
+					<div>
+					<img src="#" alt="${this._data.away.avatar}">
+					<h1>${
+						this._data.away.name !== ""
+							? this._data.away.name
+							: this._data.away.id
+					}</h1>
+					${!this._data.homeTurn ? "" : "<h1>Flag</h1>"}
+					</div>
+				</div>`;
 	}
 	_generateHtml() {
 		return `

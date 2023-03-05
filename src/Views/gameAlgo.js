@@ -9,7 +9,8 @@ class GameAlgo {
 	 * Generates all labels and possible combos
 	 */
 	_gameAlgo(dimensions) {
-		const labels = gridArea(dimensions);
+		// const labels = gridArea(dimensions);
+		const labels = gridArea(dimensions[0], dimensions[1]);
 
 		const combos = getAllPointCombos(dimensions);
 

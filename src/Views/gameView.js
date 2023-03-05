@@ -5,6 +5,10 @@
 class GameView {
 	_parentElement = document.querySelector(".game");
 	_data;
+
+	_getGameData(data) {
+		this._data = data;
+	}
 	// HANDLERS
 	gameStartHandler(handler) {
 		this._parentElement.addEventListener("click", e => {
@@ -44,9 +48,8 @@ class GameView {
 		this._parentElement.insertAdjacentHTML("afterbegin", HTML);
 	}
 	// board View
-	renderBoard(data) {
+	renderBoard() {
 		this._clear();
-		this._data = data;
 
 		const html = this._generateBoardHTML();
 
@@ -66,13 +69,14 @@ class GameView {
 		const labels = this._data.data.labels;
 
 		const html_1 = `<section class="board">
+		
 							<h3 class="board__title">${this._data.data.dimensions[0]} X ${this._data.data.dimensions[1]}board</h3>
 							<div class="board__view">`;
 		const html_2 = labels
 			.map((label, index) => {
 				return `<div class="">
 							<label for="disc-15">[${label}]</label>
-							<input type="button" class="board__disc" data-position=(${label[0]},${label[1]}) id="disc-${index}" />
+							<input type="button" class="board__disc" data-position=(${label[0]},${label[1]}) />
 						</div>`;
 			})
 			.join("");

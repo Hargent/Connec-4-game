@@ -255,4 +255,15 @@ body {
   width: 40%;
   justify-self: center;
   align-self: center;
+}
+
+.players__display {
+  width: 60vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.players__display > *:not(:last-child) {
+  margin-right: auto;
 }/*# sourceMappingURL=main.css.map */

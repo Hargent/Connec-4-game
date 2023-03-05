@@ -76,101 +76,102 @@ const generateGameData = () => {
 	};
 };
 
-//
+/**
+ *
+ * @param {[Number[]]} arr main array
+ * @param {Number[]} chk array to find in the main array
+ * @returns True if chk is in arr and false otherwise
+ */
+const isCOntains = (arr, chk) => {
+	return arr.some(ar => {
+		if (
+			Array.isArray(ar) &&
+			Array.isArray(chk) &&
+			ar.length === chk.length
+		) {
+			let isTrue = [];
+			for (let i = 0; i < ar.length; i++) {
+				isTrue.push(ar[i] === chk[i]);
+			}
+			if (isTrue.every(el => el === true)) console.log(arr);
+			return isTrue.every(el => el === true);
+		}
+		return false;
+	});
+};
+/**
+ * Adds new point to the Array of clicked points
+ * @param {Number[]} target 2D coords of point to be saved
+ * @returns Void Only when the target already exist in the main array
+ */
+const saveInputs = target => {
+	const isSaved = state.players.homeTurn
+		? isCOntains(state.players.home.inputs, target)
+		: isCOntains(state.players.away.inputs, target);
 
-// ////////!SECTION
-// /**
-//  *
-//  * @param {[Number[]]} arr main array
-//  * @param {Number[]} chk array to find in the main array
-//  * @returns True if chk is in arr and false otherwise
-//  */
-// const isCOntains = (arr, chk) => {
-// 	return arr.some(ar => {
-// 		if (
-// 			Array.isArray(ar) &&
-// 			Array.isArray(chk) &&
-// 			ar.length === chk.length
-// 		) {
-// 			let isTrue = [];
-// 			for (let i = 0; i < ar.length; i++) {
-// 				isTrue.push(ar[i] === chk[i]);
-// 			}
+	if (isSaved) {
+		state.players.homeTurn = state.players.homeTurn;
+		return;
+	}
+	if (state.players.homeWin !== null) return;
+	state.players.homeTurn = !state.players.homeTurn;
 
-// 			return isTrue.every(el => el === true);
-// 		}
-// 		return false;
-// 	});
-// };
-// /**
-//  * Adds new point to the Array of clicked points
-//  * @param {Number[]} target 2D coords of point to be saved
-//  * @returns Void Only when the target already exist in the main array
-//  */
-// const saveInputs = target => {
-// 	const isSaved = state.player.homeTurn
-// 		? isCOntains(state.player.home.inputs, target)
-// 		: isCOntains(state.player.away.inputs, target);
+	state.players.homeTurn
+		? state.players.home.inputs.push(target)
+		: state.players.away.inputs.push(target);
+};
+/**
+ *
+ * @returns True if a winning combination is found and false otherwise
+ */
+const checkWin = () => {
+	const target = state.players.homeTurn
+		? state.players.home.inputs
+		: state.players.away.inputs;
 
-// 	if (isSaved) {
-// 		state.player.homeTurn = state.player.homeTurn;
-// 		return;
-// 	}
-// 	if (state.player.homeWin !== null) return;
-// 	state.player.homeTurn = !state.player.homeTurn;
+	console.log(state.game.data.combos);
+	return state.game.data.combos.some(combination => {
+		return combination.every(index => {
+			return isCOntains(target, index);
+		});
+	});
+};
+/**
+ *
+ * @returns True if no winning combo is found and there are no more room for clicks i.e Game Over
+ */
+const checkDraw = () => {
+	return (
+		state.players.home.inputs.length + state.players.away.inputs.length ===
+		state.game.data.dimensions.reduce((st, el) => st * el)
+	);
+};
+/**
+ * Swaps turns between the two players as well as checking for a win or a draw scenario
+ * @returns Void only when the game ends and there and no more turns
+ */
+const gameStatus = () => {
+	let currentPlayer;
+	if (state.players.homeTurn === null) return;
+	state.players.homeTurn
+		? (currentPlayer = state.players.away.name)
+		: (currentPlayer = state.players.home.name);
 
-// 	state.player.homeTurn
-// 		? state.player.home.inputs.push(target)
-// 		: state.player.away.inputs.push(target);
-// };
-// /**
-//  *
-//  * @returns True if a winning combination is found and false otherwise
-//  */
-// const checkWin = () => {
-// 	const target = state.player.homeTurn
-// 		? state.player.home.inputs
-// 		: state.player.away.inputs;
-
-// 	return state.game.data.winningCombos.some(combination => {
-// 		return combination.every(index => {
-// 			return isCOntains(target, index);
-// 		});
-// 	});
-// };
-// /**
-//  *
-//  * @returns True if no winning combo is found and there are no more room for clicks i.e Game Over
-//  */
-// const checkDraw = () => {
-// 	return (
-// 		state.player.home.inputs.length + state.player.away.inputs.length ===
-// 		state.game.data.dimensions.reduce((st, el) => st * el)
-// 	);
-// };
-// /**
-//  * Swaps turns between the two players as well as checking for a win or a draw scenario
-//  * @returns Void only when the game ends and there and no more turns
-//  */
-// const gameStatus = () => {
-// 	let currentPlayer;
-// 	if (state.player.homeTurn === null) return;
-// 	state.player.homeTurn
-// 		? (currentPlayer = state.player.away.name)
-// 		: (currentPlayer = state.player.home.name);
-
-// 	if (checkWin()) {
-// 		state.player.homeWin = currentPlayer;
-// 		state.player.homeTurn = null;
-// 		state.game.isEnd = true;
-// 	} else if (checkDraw()) {
-// 		state.player.homeWin = "draw";
-// 		state.player.homeTurn = null;
-// 		state.game.isEnd = true;
-// 		state.game.isDraw = true;
-// 	}
-// };
-// /**
+	if (checkWin()) {
+		console.log("win");
+		state.players.homeWin = currentPlayer;
+		state.players.homeTurn = null;
+		state.game.isEnd = true;
+	} else if (checkDraw()) {
+		console.log("draw");
+		state.players.homeWin = "draw";
+		state.players.homeTurn = null;
+		state.game.isEnd = true;
+		state.game.isDraw = true;
+	}
+	console.log("keep playing");
+};
+/**
 //  * Resets the game state to the initial state
 //  */
 // const restartGame = () => {
@@ -197,4 +198,11 @@ const generateGameData = () => {
 // 	};
 // };
 // const updateBoardState = data => {};
-export { state, savePlayerDetails, saveBoardDetails, generateGameData };
+export {
+	state,
+	savePlayerDetails,
+	saveBoardDetails,
+	generateGameData,
+	saveInputs,
+	gameStatus,
+};
