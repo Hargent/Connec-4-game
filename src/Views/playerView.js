@@ -3,6 +3,7 @@
 import updateAlgo from "./Algorithm/updateAlgo";
 
 class PlayerView {
+	_root = document.querySelector(":root");
 	_parentElement = document.querySelector(".game");
 	_data;
 	_currentPlayer;
@@ -38,6 +39,54 @@ class PlayerView {
 		updateAlgo(newElements, currentElement);
 	}
 
+	_convert(rgba) {
+		rgba = rgba.match(
+			/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/
+		);
+
+		function hexCode(i) {
+			return ("0" + parseInt(i).toString(16)).slice(-2);
+		}
+
+		let hexColor =
+			"#" + hexCode(rgba[1]) + hexCode(rgba[2]) + hexCode(rgba[3]);
+
+		// Check if alpha channel is present and add it to the hex color code
+		if (rgba[4]) {
+			let alpha = Math.round(parseFloat(rgba[4]) * 255);
+			hexColor += hexCode(alpha);
+		}
+
+		return hexColor;
+	}
+
+	_adjustColor(hexColor, magnitude) {
+		hexColor = hexColor.replace(`#`, ``);
+		if (hexColor.length === 6) {
+			const decimalColor = parseInt(hexColor, 16);
+			let r = (decimalColor >> 16) + magnitude;
+			r > 255 && (r = 255);
+			r < 0 && (r = 0);
+			let g = (decimalColor & 0x0000ff) + magnitude;
+			g > 255 && (g = 255);
+			g < 0 && (g = 0);
+			let b = ((decimalColor >> 8) & 0x00ff) + magnitude;
+			b > 255 && (b = 255);
+			b < 0 && (b = 0);
+			return `#${(g | (b << 8) | (r << 16)).toString(16)}`;
+		} else {
+			return hexColor;
+		}
+	}
+	_createAdjustedColor(classEl, magnitude) {
+		const rgbColor = window.getComputedStyle(
+			document.querySelector(classEl)
+		).fill;
+
+		const hexColor = this._convert(rgbColor);
+		return this._adjustColor(hexColor, magnitude);
+	}
+
 	/**
 	 *
 	 * @param {Number[]} target 2D coordinates of a point of event
@@ -47,15 +96,45 @@ class PlayerView {
 		const cell = document.querySelector(
 			`[data-position="${target.join(",")}"]`
 		);
+		const icons = this._parentElement.querySelectorAll(".player__icon");
 
-		console.log(this._data.homeWin);
-		console.log(cell?.classList.length);
-		if (cell?.classList.length > 3 || this._data.homeWin !== null) {
+		this._currentPlayer = !this._data.homeTurn
+			? this._data.home.id
+			: this._data.away.id;
+
+		[...icons].map(icon => {
+			if (
+				icon.isEqualNode(
+					document.querySelector(`.${this._currentPlayer}-icon`)
+				)
+			) {
+				const color = this._data.homeTurn
+					? this._data.home.color
+					: this._data.away.color;
+				icon.style.fill = color;
+			} else {
+				icon.style.fill = "#fff";
+			}
+		});
+
+		const hexColor = this._createAdjustedColor(
+			`.${this._currentPlayer}-icon`,
+			50
+		);
+
+		this._root.style.setProperty(
+			"--cursor-primary",
+			this._data.homeTurn ? this._data.home.color : this._data.away.color
+		);
+		this._root.style.setProperty("--cursor-primary-light", hexColor);
+
+		this._root.style.setProperty("--home-color", this._data.home.color);
+		this._root.style.setProperty("--away-color", this._data.away.color);
+
+		if (cell?.classList.length > 1 || this._data.homeWin !== null) {
 			cell?.classList.add("disabled");
 			return;
 		}
-
-		console.log(this._currentPlayer);
 		cell.classList.add(this._currentPlayer);
 	}
 	// HANDLERS
@@ -81,6 +160,7 @@ class PlayerView {
 		this._parentElement.addEventListener("click", e => {
 			try {
 				const disc = e.target.closest(".board__disc");
+
 				if (!disc) return;
 
 				const target = disc.dataset.position
@@ -93,6 +173,7 @@ class PlayerView {
 			}
 		});
 	}
+
 	// RENDERS
 	render() {
 		this._clear();
@@ -102,19 +183,44 @@ class PlayerView {
 	renderBoard() {
 		const HTML = this._generateBoardHtml();
 		this._parentElement.insertAdjacentHTML("afterbegin", HTML);
+
+		// initial colored icon
+
+		const initialColored = document.querySelector(
+			`[data-name="${this._currentPlayer}"]`
+		);
+		initialColored.style.fill = this._data.homeTurn
+			? this._data.home.color
+			: this._data.away.color;
+
+		this._root.style.setProperty(
+			"--cursor-primary",
+			this._data.homeTurn ? this._data.home.color : this._data.away.color
+		);
+
+		this._root.style.setProperty(
+			"--cursor-primary-light",
+			this._createAdjustedColor(
+				`.${
+					!this._data.homeTurn
+						? this._data.home.id
+						: this._data.away.id
+				}-icon`,
+				50
+			)
+		);
 	}
 	_clear() {
 		this._parentElement.innerHTML = "";
 	}
 	// GENERATORS
 	_generateBoardHtml() {
-		console.log(this._data.homeTurn);
 		return `<div class="players__display">
 					<div>
 						<div>
 							<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 								width="50" height="50"
-								class="player__icon"
+								class="player__icon home-icon"
 								data-name="home"
 								viewBox="0 0 33.957 46.001">
 								<path d="m 16.958,2 h 0.048 a 15.026,15.026 0 0 1 14.951,15 c 0,6.251 -4.74,12.456 -11,14.657 v -4.865 a 10.561,10.561 0 0 0 6,-9.792 9.794,9.794 0 0 0 -10,-10 9.9,9.9 0 0 0 -10,10 10.559,10.559 0 0 0 6,9.792 v 15.4 C 9.669,37.983 3.1,28.579 2.1,19.569 A 16.31,16.31 0 0 1 6.1,6.9 14.434,14.434 0 0 1 16.958,2 m 0,-2 C 6.572,0 -1.027,9.456 0.113,19.788 1.285,30.411 9.75,41.674 13.206,45.656 A 0.971,0.971 0 0 0 13.948,46.001 1,1 0 0 0 14.957,45 V 26.154 A 1.022,1.022 0 0 0 14.327,25.227 8.577,8.577 0 0 1 8.957,17 a 7.887,7.887 0 0 1 8,-8 7.829,7.829 0 0 1 8,8 8.657,8.657 0 0 1 -5.37,8.226 1.025,1.025 0 0 0 -0.63,0.929 V 33 a 1.007,1.007 0 0 0 1.008,1 1.034,1.034 0 0 0 0.256,-0.033 C 27.544,32.078 33.957,24.914 33.957,17 A 17,17 0 0 0 17.012,0 Z"></path>
@@ -130,7 +236,7 @@ class PlayerView {
 					<div>
 						<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 							width="50" height="50"
-							class="player__icon"
+							class="player__icon away-icon"
 							data-name="away"
 							viewBox="0 0 33.957 46.001">
 							<path d="m 16.958,2 h 0.048 a 15.026,15.026 0 0 1 14.951,15 c 0,6.251 -4.74,12.456 -11,14.657 v -4.865 a 10.561,10.561 0 0 0 6,-9.792 9.794,9.794 0 0 0 -10,-10 9.9,9.9 0 0 0 -10,10 10.559,10.559 0 0 0 6,9.792 v 15.4 C 9.669,37.983 3.1,28.579 2.1,19.569 A 16.31,16.31 0 0 1 6.1,6.9 14.434,14.434 0 0 1 16.958,2 m 0,-2 C 6.572,0 -1.027,9.456 0.113,19.788 1.285,30.411 9.75,41.674 13.206,45.656 A 0.971,0.971 0 0 0 13.948,46.001 1,1 0 0 0 14.957,45 V 26.154 A 1.022,1.022 0 0 0 14.327,25.227 8.577,8.577 0 0 1 8.957,17 a 7.887,7.887 0 0 1 8,-8 7.829,7.829 0 0 1 8,8 8.657,8.657 0 0 1 -5.37,8.226 1.025,1.025 0 0 0 -0.63,0.929 V 33 a 1.007,1.007 0 0 0 1.008,1 1.034,1.034 0 0 0 0.256,-0.033 C 27.544,32.078 33.957,24.914 33.957,17 A 17,17 0 0 0 17.012,0 Z"></path>
@@ -197,33 +303,5 @@ class PlayerView {
 			`;
 	}
 }
-
-// /**
-//  * Handles hovering event on cells
-//  * @param {Number[]} target  2D coordinates of a point of event
-//  * @returns Void Only when the game is over
-//  */
-// setBoardHoverClass(target) {
-// 	if (this._data.homeWin !== null) return;
-
-// 	target.classList.remove(`${this._data.home.name}-hover`);
-// 	target.classList.remove(`${this._data.away.name}-hover`);
-// 	if (this._data.homeTurn) {
-// 		target.classList.add(`${this._data.home.name}-hover`);
-// 	} else {
-// 		target.classList.add(`${this._data.away.name}-hover`);
-// 	}
-// }
-// /**
-//  * Handles the removal hovering event on cells
-//  * @param {Number[]} target  2D coordinates of a point of event
-//  * @returns Void Only when the game is over
-//  */
-// removeBoardHoverClass(target) {
-// 	if (this._data.homeWin !== null) return;
-
-// 	target.classList.remove(`${this._data.home.name}-hover`);
-// 	target.classList.remove(`${this._data.away.name}-hover`);
-// }
 
 export default new PlayerView();

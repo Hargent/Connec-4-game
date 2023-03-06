@@ -1,9 +1,10 @@
 //SECTION - IMPORTS
 
 import * as model from "./model";
+import * as model from "./model";
 
 import core from "core-js";
-import cursor from "./cursorView";
+import cursor from "./Views/cursorView";
 import gameAlgo from "./Views/gameAlgo";
 import gameView from "./Views/gameView";
 import playerView from "./Views/playerView";
@@ -20,6 +21,7 @@ const generateGameData = () => {
 };
 
 // /**
+//  * Updates the game data  used by the Views
 //  * Updates the game data  used by the Views
 //  */
 // const updateData = () => {
@@ -63,6 +65,7 @@ const controlGamePlay = target => {
 
 	if (model.state.game.isEnd) {
 		console.log("Game Over");
+		return;
 	}
 };
 

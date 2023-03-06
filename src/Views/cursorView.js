@@ -26,22 +26,6 @@ class Cursor {
 		this.animateDotOutline();
 	}
 
-	//     updateCursor(e) {
-	//
-
-	//         console.log(e)
-
-	//         // Show the cursor
-	//         this.#cursorVisible = true;
-	//         this.toggleCursorVisibility();
-
-	//         // Position the dot
-	//         this._endX = e.pageX;
-	//         this._endY = e.pageY;
-	//         this.#dot.style.top = this._endY + 'px';
-	//         this.#dot.style.left = this._endX + 'px';
-	//     }
-
 	setupEventListeners() {
 		// Click events
 		document.addEventListener("mousedown", e => {
@@ -73,22 +57,26 @@ class Cursor {
 		});
 
 		// Hide/show cursor
-		this._parentElement.addEventListener("mouseenter", e => {
-			if (!e.target.closest(".board")) return;
-			this.#cursorVisible = true;
-			this.toggleCursorVisibility();
-			this.#dot.style.opacity = 1;
-			this.#outline.style.opacity = 1;
-		});
+		this._parentElement
+			.querySelector(".board")
+			.addEventListener("mouseenter", e => {
+				if (!e.target) return;
+				this.#cursorVisible = true;
+				this.toggleCursorVisibility();
+				this.#dot.style.opacity = 1;
+				this.#outline.style.opacity = 1;
+			});
 
-		this._parentElement.addEventListener("mouseleave", e => {
-			if (!e.target.closest(".board")) return;
+		this._parentElement
+			.querySelector(".board")
+			.addEventListener("mouseleave", e => {
+				if (!e.target) return;
 
-			this.#cursorVisible = true;
-			this.toggleCursorVisibility();
-			this.#dot.style.opacity = 0;
-			this.#outline.style.opacity = 0;
-		});
+				this.#cursorVisible = true;
+				this.toggleCursorVisibility();
+				this.#dot.style.opacity = 0;
+				this.#outline.style.opacity = 0;
+			});
 	}
 
 	animateDotOutline() {

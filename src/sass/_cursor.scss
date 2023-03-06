@@ -1,11 +1,5 @@
 // Colors
 
-:root {
-	--primary: #dc5656;
-	--primary-light: mix(white, $primary, 25%);
-}
-$primary-light: var(--primary-light);
-$primary: var(--primary);
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400|Raleway:300);
 $open-sans: "Open Sans", Helvetica, arial, sans-serif;
@@ -27,13 +21,13 @@ $raleway: "Raleway", "Open Sans", sans-serif;
 	$size: 8px;
 	width: $size;
 	height: $size;
-	background-color: $primary;
+	background-color: var(--cursor-primary);
 }
 
 .cursor-dot-outline {
 	$size: 40px;
-
 	width: $size;
 	height: $size;
-	background-color: rgba($primary-light, 0.5);
+
+	background-color: var(--cursor-primary-light);
 }
