@@ -43,7 +43,12 @@ body {
 	visibility: hidden;
 	display: none !important;
 }
-
+.home {
+	background-color: red;
+}
+.away {
+	background-color: blue;
+}
 /*!SECTION"watch:sass": "sass sass/main.scss css/style.css -w",
 		"devserver": "live-server",
 		"dev": "npm-run-all --parallel watch:sass devserver",

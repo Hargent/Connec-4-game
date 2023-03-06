@@ -1,5 +1,7 @@
 //SECTION - IMPORTS
 
+import updateAlgo from "./Algorithm/updateAlgo";
+
 class PlayerView {
 	_parentElement = document.querySelector(".game");
 	_data;
@@ -9,10 +11,53 @@ class PlayerView {
 		this._data = data;
 
 		this._currentPlayer = this._data.homeTurn
-			? this._data.home.id
-			: this._data.away.id;
+			? this._data.away.id
+			: this._data.home.id;
+	}
+	// UPDATE
+	/**
+	 * Updates only part of the DOM with new values
+	 * @param {Object | Object[]} data The data to be rendered (e.g recipe details data)
+	 *
+	 */
+	updateBoard(data) {
+		this._data = data;
+		this._currentPlayer = this._data.homeTurn
+			? this._data.away.id
+			: this._data.home.id;
+		const newHtml = this._generateBoardHtml();
+		// creating a virtual dom in memory
+		const newDom = document.createRange().createContextualFragment(newHtml);
+		const newElements = Array.from(newDom.querySelectorAll("*"));
+		const currentElement = Array.from(
+			this._parentElement.querySelectorAll("*")
+		);
+
+		// console.time('t1');
+
+		updateAlgo(newElements, currentElement);
 	}
 
+	/**
+	 *
+	 * @param {Number[]} target 2D coordinates of a point of event
+	 * @returns Void Only when cells are clicked twice
+	 */
+	placeMark(target) {
+		const cell = document.querySelector(
+			`[data-position="${target.join(",")}"]`
+		);
+
+		console.log(this._data.homeWin);
+		console.log(cell?.classList.length);
+		if (cell?.classList.length > 3 || this._data.homeWin !== null) {
+			cell?.classList.add("disabled");
+			return;
+		}
+
+		console.log(this._currentPlayer);
+		cell.classList.add(this._currentPlayer);
+	}
 	// HANDLERS
 	playerDetailsHandler(handler) {
 		this._parentElement.addEventListener("click", function (e) {
@@ -42,7 +87,6 @@ class PlayerView {
 					.split(",")
 					.map(str => parseInt(str));
 
-				console.log(target);
 				handler(target);
 			} catch (err) {
 				console.error(err);
@@ -64,25 +108,37 @@ class PlayerView {
 	}
 	// GENERATORS
 	_generateBoardHtml() {
-		console.log(this._currentPlayer);
+		console.log(this._data.homeTurn);
 		return `<div class="players__display">
 					<div>
+						<div>
+							<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+								width="50" height="50"
+								class="player__icon"
+								data-name="home"
+								viewBox="0 0 33.957 46.001">
+								<path d="m 16.958,2 h 0.048 a 15.026,15.026 0 0 1 14.951,15 c 0,6.251 -4.74,12.456 -11,14.657 v -4.865 a 10.561,10.561 0 0 0 6,-9.792 9.794,9.794 0 0 0 -10,-10 9.9,9.9 0 0 0 -10,10 10.559,10.559 0 0 0 6,9.792 v 15.4 C 9.669,37.983 3.1,28.579 2.1,19.569 A 16.31,16.31 0 0 1 6.1,6.9 14.434,14.434 0 0 1 16.958,2 m 0,-2 C 6.572,0 -1.027,9.456 0.113,19.788 1.285,30.411 9.75,41.674 13.206,45.656 A 0.971,0.971 0 0 0 13.948,46.001 1,1 0 0 0 14.957,45 V 26.154 A 1.022,1.022 0 0 0 14.327,25.227 8.577,8.577 0 0 1 8.957,17 a 7.887,7.887 0 0 1 8,-8 7.829,7.829 0 0 1 8,8 8.657,8.657 0 0 1 -5.37,8.226 1.025,1.025 0 0 0 -0.63,0.929 V 33 a 1.007,1.007 0 0 0 1.008,1 1.034,1.034 0 0 0 0.256,-0.033 C 27.544,32.078 33.957,24.914 33.957,17 A 17,17 0 0 0 17.012,0 Z"></path>
+							</svg>
+					
+					</div>
 						<img src="#" alt="${this._data.home.avatar}">
-						<h1>${
-							this._data.home.name !== ""
-								? this._data.home.name
-								: this._data.home.id
-						}</h1>
-					${this._currentPlayer === "home" ? "<h1>Flag</h1>" : ""}
+						<h1>${this._data.home.name !== "" ? this._data.home.name : this._data.home.id}
+						
+						
 					</div>
 					<div>
+					<div>
+						<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+							width="50" height="50"
+							class="player__icon"
+							data-name="away"
+							viewBox="0 0 33.957 46.001">
+							<path d="m 16.958,2 h 0.048 a 15.026,15.026 0 0 1 14.951,15 c 0,6.251 -4.74,12.456 -11,14.657 v -4.865 a 10.561,10.561 0 0 0 6,-9.792 9.794,9.794 0 0 0 -10,-10 9.9,9.9 0 0 0 -10,10 10.559,10.559 0 0 0 6,9.792 v 15.4 C 9.669,37.983 3.1,28.579 2.1,19.569 A 16.31,16.31 0 0 1 6.1,6.9 14.434,14.434 0 0 1 16.958,2 m 0,-2 C 6.572,0 -1.027,9.456 0.113,19.788 1.285,30.411 9.75,41.674 13.206,45.656 A 0.971,0.971 0 0 0 13.948,46.001 1,1 0 0 0 14.957,45 V 26.154 A 1.022,1.022 0 0 0 14.327,25.227 8.577,8.577 0 0 1 8.957,17 a 7.887,7.887 0 0 1 8,-8 7.829,7.829 0 0 1 8,8 8.657,8.657 0 0 1 -5.37,8.226 1.025,1.025 0 0 0 -0.63,0.929 V 33 a 1.007,1.007 0 0 0 1.008,1 1.034,1.034 0 0 0 0.256,-0.033 C 27.544,32.078 33.957,24.914 33.957,17 A 17,17 0 0 0 17.012,0 Z"></path>
+						</svg>
+					</div>
 					<img src="#" alt="${this._data.away.avatar}">
-					<h1>${
-						this._data.away.name !== ""
-							? this._data.away.name
-							: this._data.away.id
-					}</h1>
-					${this._currentPlayer === "away" ? "" : "<h1>Flag</h1>"}
+					<h1>${this._data.away.name !== "" ? this._data.away.name : this._data.away.id}
+					</h1>
 					</div>
 				</div>`;
 	}
@@ -142,22 +198,6 @@ class PlayerView {
 	}
 }
 
-// /**
-//  *
-//  * @param {Number[]} target 2D coordinates of a point of event
-//  * @returns Void Only when cells are clicked twice
-//  */
-// placeMark(target) {
-// 	const cell = document.querySelector(
-// 		`[data-cell="${target.join(",")}"]`
-// 	);
-
-// 	if (cell?.classList.length > 2 || this._data.homeWin !== null) {
-// 		cell?.classList.add("disabled");
-// 		return;
-// 	}
-// 	cell.classList.add(this._currentPlayer);
-// }
 // /**
 //  * Handles hovering event on cells
 //  * @param {Number[]} target  2D coordinates of a point of event

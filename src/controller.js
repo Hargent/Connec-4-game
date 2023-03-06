@@ -3,6 +3,7 @@
 import * as model from "./model";
 
 import core from "core-js";
+import cursor from "./cursorView";
 import gameAlgo from "./Views/gameAlgo";
 import gameView from "./Views/gameView";
 import playerView from "./Views/playerView";
@@ -18,17 +19,18 @@ const generateGameData = () => {
 	gameView._getGameData(gameData.game);
 };
 
-/**
- * Updates the game data  used by the Views
- */
-const updateData = () => {
-	const gameData = model.generateGameData();
-	playerView._getPlayerData(gameData.players);
-	gameView._getGameData(gameData.game);
-};
+// /**
+//  * Updates the game data  used by the Views
+//  */
+// const updateData = () => {
+// 	const gameData = model.generateGameData();
+// 	playerView._getPlayerData(gameData.players);
+// 	gameView._getGameData(gameData.game);
+// };
 
 const AIGameControl = () => {
 	gameView.renderStart();
+	// cursor.init();
 };
 
 const controlGameStart = data => {
@@ -50,30 +52,19 @@ const controlCreateBoard = data => {
 
 	gameView.renderBoard();
 	playerView.renderBoard();
+	cursor.init();
+	//
 };
 const controlGamePlay = target => {
 	model.saveInputs(target);
+	playerView.placeMark(target);
+	playerView.updateBoard(model.generateGameData().players);
 	model.gameStatus();
 
 	if (model.state.game.isEnd) {
-		console.log("End-Game");
+		console.log("Game Over");
 	}
-	updateData();
 };
-// /**
-//  * Controls the hover event response during game
-//  * @param {Number[]} target
-//  */
-// const controlGameHoverON = target => {
-// 	playerView.setBoardHoverClass(target);
-// };
-// /**
-//  * Controls the hover removal event response during game
-//  * @param {Number[]} target
-//  */
-// const controlGameHoverOUT = target => {
-// 	playerView.removeBoardHoverClass(target);
-// };
 
 /**
 //  *
@@ -96,6 +87,7 @@ const init = () => {
 	gameView.gameStartHandler(controlGameStart);
 	playerView.playerDetailsHandler(controlPlayerDetails);
 };
+
 init();
 
 // function that swap cyurrent playrer

@@ -1,6 +1,6 @@
 //SECTION - IMPORTS
 
-// import View from "./View";
+import imageName from "../../assets/connect4.gif";
 
 class GameView {
 	_parentElement = document.querySelector(".game");
@@ -33,6 +33,7 @@ class GameView {
 			console.error(err);
 		}
 	}
+
 	// RENDERS
 	renderStart() {
 		const HTML = this._generateStartHtml();
@@ -69,7 +70,8 @@ class GameView {
 		const labels = this._data.data.labels;
 
 		const html_1 = `<section class="board">
-		
+							<div class="cursor-dot-outline"></div>
+							<div class="cursor-dot"></div>
 							<h3 class="board__title">${this._data.data.dimensions[0]} X ${this._data.data.dimensions[1]} board</h3>
 							<div class="board__view">`;
 		const html_2 = labels
@@ -140,7 +142,7 @@ class GameView {
 		<div class="game__view">
 						<h1>Welcome to connect 4</h1>
 						<h4>Ready to battle ?</h4>
-						<img src="./assets/connect4.gif" alt="Connect 4" />
+						<img src="${imageName}" alt="Connect 4" />
 						<button type="submit" class="btn play__now">Play now</button>
 					</div>
 				`;

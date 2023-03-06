@@ -3,6 +3,10 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	background-color: fuchsia;
+	padding: 3rem;
+
+	cursor: none;
 	h3 {
 		font-size: 1rem;
 	}
@@ -63,7 +67,7 @@
 	&__input {
 		padding: 2px;
 		border-radius: 2px;
-		cursor: pointer;
+		cursor: none;
 		margin-bottom: 0;
 
 		display: flex;
@@ -80,21 +84,22 @@
 		input:invalid {
 			border: 1px solid var(--secondary-color);
 		}
-
-		label {
-			align-self: flex-start;
-			font-size: 0.75rem;
-			// opacity: 0;
-		}
 	}
 
 	//view styles
 	&__view {
 		display: grid;
+		cursor: none;
 		div {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+			label {
+				align-self: flex-start;
+				font-size: 0.75rem;
+				cursor: none;
+				// opacity: 0;
+			}
 		}
 	}
 	// disc styles
@@ -103,7 +108,7 @@
 		height: 3.75rem;
 		border-radius: 50%;
 		padding: 0.5rem;
-		cursor: pointer;
+		cursor: none;
 
 		display: flex;
 		flex-direction: column;
