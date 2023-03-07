@@ -5,6 +5,15 @@
 $open-sans: "Open Sans", Helvetica, arial, sans-serif;
 $raleway: "Raleway", "Open Sans", sans-serif;
 
+//
+@function customLighten($color-variable, $value) {
+	$color-variable-h: var(#{$color-variable + "-h"});
+	$color-variable-s: var(#{$color-variable + "-s"});
+	$color-variable-l: calc(var(#{$color-variable + "-l"}) + #{$value+"%"});
+
+	@return hsl($color-variable-h, $color-variable-s, $color-variable-l);
+}
+
 .cursor-dot,
 .cursor-dot-outline {
 	z-index: 100;
@@ -30,5 +39,5 @@ $raleway: "Raleway", "Open Sans", sans-serif;
 	width: $size;
 	height: $size;
 
-	background-color: var(--cursor-primary-light);
+	background-color: customLighten(--cursor-primary-light, 30);
 }

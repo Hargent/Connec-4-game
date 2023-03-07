@@ -1,5 +1,6 @@
 //SECTION - IMPORTS
 
+import convertColor from "./Algorithm/convert";
 import updateAlgo from "./Algorithm/updateAlgo";
 
 class PlayerView {
@@ -39,54 +40,68 @@ class PlayerView {
 		updateAlgo(newElements, currentElement);
 	}
 
-	_convert(rgba) {
-		rgba = rgba.match(
-			/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/
-		);
+	// _convert(rgba) {
+	// 	rgba = rgba.match(
+	// 		/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/
+	// 	);
 
-		function hexCode(i) {
-			return ("0" + parseInt(i).toString(16)).slice(-2);
-		}
+	// 	function hexCode(i) {
+	// 		return ("0" + parseInt(i).toString(16)).slice(-2);
+	// 	}
 
-		let hexColor =
-			"#" + hexCode(rgba[1]) + hexCode(rgba[2]) + hexCode(rgba[3]);
+	// 	let hexColor =
+	// 		"#" + hexCode(rgba[1]) + hexCode(rgba[2]) + hexCode(rgba[3]);
 
-		// Check if alpha channel is present and add it to the hex color code
-		if (rgba[4]) {
-			let alpha = Math.round(parseFloat(rgba[4]) * 255);
-			hexColor += hexCode(alpha);
-		}
+	// 	// Check if alpha channel is present and add it to the hex color code
+	// 	if (rgba[4]) {
+	// 		let alpha = Math.round(parseFloat(rgba[4]) * 255);
+	// 		hexColor += hexCode(alpha);
+	// 	}
 
-		return hexColor;
-	}
+	// 	return hexColor;
+	// }
 
-	_adjustColor(hexColor, magnitude) {
-		hexColor = hexColor.replace(`#`, ``);
-		if (hexColor.length === 6) {
-			const decimalColor = parseInt(hexColor, 16);
-			let r = (decimalColor >> 16) + magnitude;
-			r > 255 && (r = 255);
-			r < 0 && (r = 0);
-			let g = (decimalColor & 0x0000ff) + magnitude;
-			g > 255 && (g = 255);
-			g < 0 && (g = 0);
-			let b = ((decimalColor >> 8) & 0x00ff) + magnitude;
-			b > 255 && (b = 255);
-			b < 0 && (b = 0);
-			return `#${(g | (b << 8) | (r << 16)).toString(16)}`;
-		} else {
-			return hexColor;
-		}
-	}
-	_createAdjustedColor(classEl, magnitude) {
-		const rgbColor = window.getComputedStyle(
-			document.querySelector(classEl)
-		).fill;
+	// _adjustColor(hexColor, magnitude) {
+	// 	hexColor = hexColor.replace(`#`, ``);
+	// 	if (hexColor.length === 6) {
+	// 		const decimalColor = parseInt(hexColor, 16);
+	// 		let r = (decimalColor >> 16) + magnitude;
+	// 		r > 255 && (r = 255);
+	// 		r < 0 && (r = 0);
+	// 		let g = (decimalColor & 0x0000ff) + magnitude;
+	// 		g > 255 && (g = 255);
+	// 		g < 0 && (g = 0);
+	// 		let b = ((decimalColor >> 8) & 0x00ff) + magnitude;
+	// 		b > 255 && (b = 255);
+	// 		b < 0 && (b = 0);
+	// 		return `#${(g | (b << 8) | (r << 16)).toString(16)}`;
+	// 	} else {
+	// 		return hexColor;
+	// 	}
+	// }
+	// _createAdjustedColor(classEl, magnitude) {
+	// 	const rgbColor = window.getComputedStyle(
+	// 		document.querySelector(classEl)
+	// 	).fill;
 
-		const hexColor = this._convert(rgbColor);
-		return this._adjustColor(hexColor, magnitude);
-	}
+	// 	const hexColor = this._convert(rgbColor);
+	// 	return this._adjustColor(hexColor, magnitude);
+	// }
 
+	_setColor = color => {
+		const set = color
+			.split("(")[1]
+			.split(")")[0]
+			.split(", ")
+			.filter(el => {
+				if (el === "0") {
+					return el;
+				} else if (parseInt(el)) {
+					return el;
+				} else return;
+			});
+		return set;
+	};
 	/**
 	 *
 	 * @param {Number[]} target 2D coordinates of a point of event
@@ -98,17 +113,17 @@ class PlayerView {
 		);
 		const icons = this._parentElement.querySelectorAll(".player__icon");
 
-		this._currentPlayer = !this._data.homeTurn
+		this._currentPlayer = this._data.homeTurn
 			? this._data.home.id
 			: this._data.away.id;
 
 		[...icons].map(icon => {
 			if (
-				icon.isEqualNode(
+				!icon.isEqualNode(
 					document.querySelector(`.${this._currentPlayer}-icon`)
 				)
 			) {
-				const color = this._data.homeTurn
+				const color = !this._data.homeTurn
 					? this._data.home.color
 					: this._data.away.color;
 				icon.style.fill = color;
@@ -117,28 +132,42 @@ class PlayerView {
 			}
 		});
 		// setting root color styles
-		const hexColor = this._createAdjustedColor(
-			`.${this._currentPlayer}-icon`,
-			50
-		);
+		// const hexColor = this._createAdjustedColor(
+		// 	`.${this._currentPlayer}-icon`,
+		// 	50
+		// );
 
 		this._root.style.setProperty(
 			"--cursor-primary",
-			this._data.homeTurn ? this._data.home.color : this._data.away.color
+			!this._data.homeTurn ? this._data.home.color : this._data.away.color
 		);
-		this._root.style.setProperty("--cursor-primary-light", hexColor);
+		const cursorGrad = this._setColor(
+			convertColor(
+				!this._data.homeTurn
+					? this._data.home.color
+					: this._data.away.color
+			).hsl
+		);
+		// setting root properties
+		this._root.style.setProperty("--cursor-primary-light-h", cursorGrad[0]);
+		this._root.style.setProperty("--cursor-primary-light-s", cursorGrad[1]);
+		this._root.style.setProperty("--cursor-primary-light-l", cursorGrad[2]);
 
-		this._root.style.setProperty("--home-color", this._data.home.color);
-		this._root.style.setProperty("--away-color", this._data.away.color);
+		const homeCol = this._setColor(convertColor(this._data.home.color).hsl);
+		const awayCol = this._setColor(convertColor(this._data.away.color).hsl);
+
+		this._root.style.setProperty("--query-home-color-h", homeCol[0]);
+		this._root.style.setProperty("--query-home-color-s", homeCol[1]);
+		this._root.style.setProperty("--query-home-color-l", homeCol[2]);
+		this._root.style.setProperty("--query-away-color-h", awayCol[0]);
+		this._root.style.setProperty("--query-away-color-s", awayCol[1]);
+		this._root.style.setProperty("--query-away-color-l", awayCol[2]);
 
 		if (cell?.classList.length > 1 || this._data.homeWin !== null) {
 			cell?.classList.add("disabled");
 			return;
 		}
 		cell.classList.add(this._currentPlayer);
-		console.log(
-			cell.style.setProperty(`$${this._currentPlayer}-color`, "green")
-		);
 	}
 	// HANDLERS
 	playerDetailsHandler(handler) {
@@ -190,28 +219,30 @@ class PlayerView {
 		// initial colored icon
 
 		const initialColored = document.querySelector(
-			`[data-name="${this._currentPlayer}"]`
+			`[data-name="${
+				!this._data.homeTurn ? this._data.home.id : this._data.away.id
+			}"]`
 		);
-		initialColored.style.fill = this._data.homeTurn
+
+		initialColored.style.fill = !this._data.homeTurn
 			? this._data.home.color
 			: this._data.away.color;
 
 		this._root.style.setProperty(
 			"--cursor-primary",
-			this._data.homeTurn ? this._data.home.color : this._data.away.color
+			!this._data.homeTurn ? this._data.home.color : this._data.away.color
 		);
 
-		this._root.style.setProperty(
-			"--cursor-primary-light",
-			this._createAdjustedColor(
-				`.${
-					!this._data.homeTurn
-						? this._data.home.id
-						: this._data.away.id
-				}-icon`,
-				50
-			)
+		const cursorGrad = this._setColor(
+			convertColor(
+				!this._data.homeTurn
+					? this._data.home.color
+					: this._data.away.color
+			).hsl
 		);
+		this._root.style.setProperty("--cursor-primary-light-h", cursorGrad[0]);
+		this._root.style.setProperty("--cursor-primary-light-s", cursorGrad[1]);
+		this._root.style.setProperty("--cursor-primary-light-l", cursorGrad[2]);
 	}
 	_clear() {
 		this._parentElement.innerHTML = "";

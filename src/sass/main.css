@@ -147,10 +147,21 @@
   --gradient-2: linear-gradient(to bottom right, #e4ff1a, #6eeb83);
   --transition: all 0.5s;
   --shadow: 0.4;
-  --home-color: red;
-  --away-color: blue;
+  --home-color: #ff0000;
+  --away-color: #0000ff;
   --cursor-primary: #dc5656;
   --cursor-primary-light: #ea9999;
+  --cursor-primary-light-h:200;
+  --cursor-primary-light-s:90%;
+  --cursor-primary-light-l:56%;
+  --query-home-color: hsl(45, 32, 56);
+  --query-home-color-h: 220;
+  --query-home-color-s: 90%;
+  --query-home-color-l: 56%;
+  --query-away-color: hsl(45, 32, 56);
+  --query-away-color-h: 220;
+  --query-away-color-s: 90%;
+  --query-away-color-l: 56%;
 }
 
 *,
@@ -185,7 +196,7 @@ body {
 }
 
 .home {
-  background-color: var(--away-color);
+  background-color: transparent;
   border: none;
   outline: none;
   position: relative;
@@ -196,8 +207,8 @@ body {
   height: 46.2px;
   border-radius: 50%;
   z-index: 5;
-  background-image: radial-gradient(50% 50% at 50% 50%, #1a1aff 70%, #2424ff 70%, #0a0aff 85%, #0000d1 100%);
-  box-shadow: 0px 1px 2px 3px #000099;
+  background-image: radial-gradient(50% 50% at 50% 50%, hsl(var(--query-home-color-h), var(--query-home-color-s), calc(var(--query-home-color-l) + 5%)) 70%, hsl(var(--query-home-color-h), var(--query-home-color-s), calc(var(--query-home-color-l) + 7%)) 70%, hsl(var(--query-home-color-h), var(--query-home-color-s), calc(var(--query-home-color-l) + 2%)) 85%, hsl(var(--query-home-color-h), var(--query-home-color-s), calc(var(--query-home-color-l) + -9%)) 100%);
+  box-shadow: 0px 1px 2px 3px hsl(var(--query-home-color-h), var(--query-home-color-s), calc(var(--query-home-color-l) + 20%));
 }
 .home > .depth--exp {
   position: absolute;
@@ -208,7 +219,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-image: linear-gradient(-90deg, #0000bd 30%, #5c5cff 80%);
+  background-image: linear-gradient(-90deg, hsl(var(--query-home-color-h), var(--query-home-color-s), calc(var(--query-home-color-l) + -13%)) 30%, hsl(var(--query-home-color-h), var(--query-home-color-s), calc(var(--query-home-color-l) + 18%)) 80%);
 }
 
 .away {
@@ -223,8 +234,8 @@ body {
   height: 46.2px;
   border-radius: 50%;
   z-index: 5;
-  background-image: radial-gradient(50% 50% at 50% 50%, #fddd4e 70%, #fddf58 70%, #fdda3f 85%, #fdcf08 100%);
-  box-shadow: 0px 1px 2px 3px #caa502;
+  background-image: radial-gradient(50% 50% at 50% 50%, hsl(var(--query-away-color-h), var(--query-away-color-s), calc(var(--query-away-color-l) + 5%)) 70%, hsl(var(--query-away-color-h), var(--query-away-color-s), calc(var(--query-away-color-l) + 7%)) 70%, hsl(var(--query-away-color-h), var(--query-away-color-s), calc(var(--query-away-color-l) + 2%)) 85%, hsl(var(--query-away-color-h), var(--query-away-color-s), calc(var(--query-away-color-l) + -9%)) 100%);
+  box-shadow: 0px 1px 2px 3px hsl(var(--query-away-color-h), var(--query-away-color-s), calc(var(--query-away-color-l) + 20%));
 }
 .away > .depth--exp {
   position: absolute;
@@ -235,7 +246,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-image: linear-gradient(-90deg, #edc202 30%, #feea90 80%);
+  background-image: linear-gradient(-90deg, hsl(var(--query-away-color-h), var(--query-away-color-s), calc(var(--query-away-color-l) + -13%)) 30%, hsl(var(--query-away-color-h), var(--query-away-color-s), calc(var(--query-away-color-l) + 18%)) 80%);
 }
 
 /*!SECTION"watch:sass": "sass sass/main.scss css/style.css -w",
@@ -365,5 +376,5 @@ body {
 .cursor-dot-outline {
   width: 40px;
   height: 40px;
-  background-color: var(--cursor-primary-light);
+  background-color: hsl(var(--cursor-primary-light-h), var(--cursor-primary-light-s), calc(var(--cursor-primary-light-l) + 30%));
 }/*# sourceMappingURL=main.css.map */
