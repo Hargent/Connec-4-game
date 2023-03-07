@@ -77,8 +77,11 @@ class GameView {
 		const html_2 = labels
 			.map((label, index) => {
 				return `<div class="">
-							<label for="disc-15">[${label}]</label>
-							<input type="button" class="board__disc" data-position=${label[0]},${label[1]} />
+							<h5>[${label}]</h5>
+							<div type="button" class="board__disc " data-position=${label[0]},${label[1]}>
+								<div class="body-exp"></div>
+								<div class="depth--exp"></div>
+							</div>
 						</div>`;
 			})
 			.join("");
@@ -88,7 +91,7 @@ class GameView {
 		const HTML = [html_1, html_2, html_3].join("");
 		return HTML;
 
-		// return
+		// return<!--<input type="button" class="board__disc" data-position=${label[0]},${label[1]} />-->
 	}
 	_generateModalHtml() {
 		return `
