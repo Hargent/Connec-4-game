@@ -69,11 +69,14 @@ class GameView {
 	_generateBoardHTML() {
 		const labels = this._data.data.labels;
 
-		const html_1 = `<section class="board">
-							<div class="cursor-dot-outline"></div>
-							<div class="cursor-dot"></div>
-							<h3 class="board__title">${this._data.data.dimensions[0]} X ${this._data.data.dimensions[1]} board</h3>
-							<div class="board__view">`;
+		const html_1 = `
+							<section class="board">
+								<div class="cursor-dot-outline"></div>
+								<div class="cursor-dot"></div>
+								<h3 class="board__title">${this._data.data.dimensions[0]} X ${this._data.data.dimensions[1]} board
+								</h3>	
+								
+								<div class="board__view">`;
 		const html_2 = labels
 			.map((label, index) => {
 				return `<div class="">
@@ -86,8 +89,8 @@ class GameView {
 			})
 			.join("");
 
-		const html_3 = `</div>
-					</section>`;
+		const html_3 = `
+						</section>`;
 		const HTML = [html_1, html_2, html_3].join("");
 		return HTML;
 

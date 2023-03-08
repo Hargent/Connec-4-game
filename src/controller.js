@@ -58,11 +58,14 @@ const controlCreateBoard = data => {
 	//
 };
 const controlGamePlay = target => {
-	model.saveInputs(target);
-	playerView.placeMark(target);
-	playerView.updateBoard(model.generateGameData().players);
-	model.gameStatus();
-
+	if (!model.state.game.isEnd) {
+		model.saveInputs(target);
+		playerView.placeMark(target);
+		playerView.updateBoard(model.generateGameData().players);
+		model.gameStatus();
+		console.log(model.state.game.isEnd);
+	}
+	console.log(model.state.game.isEnd);
 	if (model.state.game.isEnd) {
 		console.log("Game Over");
 		return;
