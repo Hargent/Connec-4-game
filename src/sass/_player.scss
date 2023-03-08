@@ -83,3 +83,40 @@
 	height: 2.5rem;
 	fill: #fff;
 }
+.board__dimensions {
+	width: 80%;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+
+	grid-column: 1/-1;
+
+	gap: 2rem;
+
+	justify-self: center;
+
+	margin-top: 2rem;
+	& > *:first-child {
+		grid-column: 1/-1;
+		width: 70%;
+		text-align: center;
+		justify-self: center;
+		margin-bottom: 1rem;
+	}
+	input {
+		padding: 0.5rem 0;
+		border: none;
+		outline: none;
+		border-radius: 0.5rem;
+		text: {
+			align: center;
+			transform: uppercase;
+		}
+
+		font-size: 2rem;
+	}
+	label {
+		transform: translateY(1rem);
+		transition: var(--transition);
+		text-align: center;
+	}
+}

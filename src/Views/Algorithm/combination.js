@@ -2,11 +2,12 @@
  * Algorithm for generating all possible linear combination of points in a 2D grid
  */
 const getAllPointCombos = dimensions => {
+	const iter = Math.max(dimensions[0], dimensions[1]);
 	let combinations = [];
-	for (let i = 0; i < dimensions[0]; i++) {
-		for (let j = 0; j < dimensions[1]; j++) {
+	for (let i = 0; i < iter; i++) {
+		for (let j = 0; j < iter; j++) {
 			// Generate combinations along rows
-			if (j <= dimensions[1] - 4) {
+			if (j <= iter - 4) {
 				combinations.push([
 					[i, j],
 					[i, j + 1],
@@ -15,7 +16,7 @@ const getAllPointCombos = dimensions => {
 				]);
 			}
 			// Generate combinations along columns
-			if (i <= dimensions[0] - 4) {
+			if (i <= iter - 4) {
 				combinations.push([
 					[i, j],
 					[i + 1, j],
@@ -24,7 +25,7 @@ const getAllPointCombos = dimensions => {
 				]);
 			}
 			// Generate combinations along diagonals
-			if (i <= dimensions[0] - 4 && j <= dimensions[1] - 4) {
+			if (i <= iter - 4 && j <= iter - 4) {
 				combinations.push([
 					[i, j],
 					[i + 1, j + 1],
@@ -32,7 +33,7 @@ const getAllPointCombos = dimensions => {
 					[i + 3, j + 3],
 				]);
 			}
-			if (i <= dimensions[0] - 4 && j >= 3) {
+			if (i <= iter - 4 && j >= 3) {
 				combinations.push([
 					[i, j],
 					[i + 1, j - 1],

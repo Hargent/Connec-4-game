@@ -20,16 +20,6 @@ const generateGameData = () => {
 	gameView._getGameData(gameData.game);
 };
 
-// /**
-//  * Updates the game data  used by the Views
-//  * Updates the game data  used by the Views
-//  */
-// const updateData = () => {
-// 	const gameData = model.generateGameData();
-// 	playerView._getPlayerData(gameData.players);
-// 	gameView._getGameData(gameData.game);
-// };
-
 const AIGameControl = () => {
 	gameView.renderStart();
 	// cursor.init();
@@ -40,12 +30,8 @@ const controlGameStart = data => {
 	playerView.render();
 };
 const controlPlayerDetails = data => {
+	console.log(data);
 	model.savePlayerDetails(data);
-
-	gameView.renderModal();
-};
-const controlCreateBoard = data => {
-	// generate labels and combos
 	const algoData = gameAlgo._gameAlgo([data.width, data.height]);
 	data.algoData = algoData;
 
@@ -56,14 +42,26 @@ const controlCreateBoard = data => {
 	playerView.renderBoard();
 	cursor.init();
 	//
+	// gameView.renderModal();
 };
+// const controlCreateBoard = data => {
+// 	// generate labels and combos
+// 	const algoData = gameAlgo._gameAlgo([data.width, data.height]);
+// 	data.algoData = algoData;
+
+// 	model.saveBoardDetails(data);
+// 	generateGameData();
+
+// 	gameView.renderBoard();
+// 	playerView.renderBoard();
+// 	cursor.init();
+// 	//
+// };
 const controlGamePlay = target => {
 	if (!model.state.game.isEnd) {
 		model.saveInputs(target);
 		playerView.placeMark(target);
-		playerView.updateBoard(model.generateGameData().players);
 		model.gameStatus();
-		console.log(model.state.game.isEnd);
 	}
 	console.log(model.state.game.isEnd);
 	if (model.state.game.isEnd) {
@@ -73,25 +71,41 @@ const controlGamePlay = target => {
 };
 
 /**
-//  *
-//  * @param {boolean} restart
-//  * @returns Void only if the game is not to be restarted
-//  */
-// const controlRestart = restart => {
-// 	if (!restart) return;
-// 	model.restartGame();
-// 	updateData();
-// 	init();
-// };
+ *
+ * @param {boolean} reset
+ * @returns Void only if the game is not to be restarted
+ */
+const controlResetGame = reset => {
+	console.log(reset);
+	if (!reset) return;
+	model.resetGame();
+
+	gameView.renderBoard();
+	playerView.renderBoard();
+	cursor.init();
+};
+/**
+ *
+ * @param {boolean} restart
+ * @returns Void only if the game is not to be restarted
+ */
+const controlRestartGame = restart => {
+	if (!restart) return;
+
+	model.restartGame();
+	AIGameControl();
+};
 /**
  * Initialize the Beginning of the game
  */
 const init = () => {
 	AIGameControl();
-	gameView.modalInputHandler(controlCreateBoard);
+	// gameView.modalInputHandler(controlCreateBoard);
 	playerView.playerInputHandler(controlGamePlay);
 	gameView.gameStartHandler(controlGameStart);
 	playerView.playerDetailsHandler(controlPlayerDetails);
+	gameView.resetGameHandler(controlResetGame);
+	gameView.restartGameHandler(controlRestartGame);
 };
 
 init();

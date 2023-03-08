@@ -1,7 +1,6 @@
 //SECTION - IMPORTS
 
 import convertColor from "./Algorithm/convert";
-import updateAlgo from "./Algorithm/updateAlgo";
 
 class PlayerView {
 	_root = document.querySelector(":root");
@@ -16,77 +15,6 @@ class PlayerView {
 			? this._data.away.id
 			: this._data.home.id;
 	}
-	// UPDATE
-	/**
-	 * Updates only part of the DOM with new values
-	 * @param {Object | Object[]} data The data to be rendered (e.g recipe details data)
-	 *
-	 */
-	updateBoard(data) {
-		this._data = data;
-		this._currentPlayer = this._data.homeTurn
-			? this._data.away.id
-			: this._data.home.id;
-		const newHtml = this._generateBoardHtml();
-		// creating a virtual dom in memory
-		const newDom = document.createRange().createContextualFragment(newHtml);
-		const newElements = Array.from(newDom.querySelectorAll("*"));
-		const currentElement = Array.from(
-			this._parentElement.querySelectorAll("*")
-		);
-
-		// console.time('t1');
-
-		updateAlgo(newElements, currentElement);
-	}
-
-	// _convert(rgba) {
-	// 	rgba = rgba.match(
-	// 		/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/
-	// 	);
-
-	// 	function hexCode(i) {
-	// 		return ("0" + parseInt(i).toString(16)).slice(-2);
-	// 	}
-
-	// 	let hexColor =
-	// 		"#" + hexCode(rgba[1]) + hexCode(rgba[2]) + hexCode(rgba[3]);
-
-	// 	// Check if alpha channel is present and add it to the hex color code
-	// 	if (rgba[4]) {
-	// 		let alpha = Math.round(parseFloat(rgba[4]) * 255);
-	// 		hexColor += hexCode(alpha);
-	// 	}
-
-	// 	return hexColor;
-	// }
-
-	// _adjustColor(hexColor, magnitude) {
-	// 	hexColor = hexColor.replace(`#`, ``);
-	// 	if (hexColor.length === 6) {
-	// 		const decimalColor = parseInt(hexColor, 16);
-	// 		let r = (decimalColor >> 16) + magnitude;
-	// 		r > 255 && (r = 255);
-	// 		r < 0 && (r = 0);
-	// 		let g = (decimalColor & 0x0000ff) + magnitude;
-	// 		g > 255 && (g = 255);
-	// 		g < 0 && (g = 0);
-	// 		let b = ((decimalColor >> 8) & 0x00ff) + magnitude;
-	// 		b > 255 && (b = 255);
-	// 		b < 0 && (b = 0);
-	// 		return `#${(g | (b << 8) | (r << 16)).toString(16)}`;
-	// 	} else {
-	// 		return hexColor;
-	// 	}
-	// }
-	// _createAdjustedColor(classEl, magnitude) {
-	// 	const rgbColor = window.getComputedStyle(
-	// 		document.querySelector(classEl)
-	// 	).fill;
-
-	// 	const hexColor = this._convert(rgbColor);
-	// 	return this._adjustColor(hexColor, magnitude);
-	// }
 
 	_setColor = color => {
 		const set = color
@@ -131,11 +59,6 @@ class PlayerView {
 				icon.style.fill = "#fff";
 			}
 		});
-		// setting root color styles
-		// const hexColor = this._createAdjustedColor(
-		// 	`.${this._currentPlayer}-icon`,
-		// 	50
-		// );
 
 		this._root.style.setProperty(
 			"--cursor-primary",
@@ -212,6 +135,8 @@ class PlayerView {
 		const HTML = this._generateHtml();
 		this._parentElement.insertAdjacentHTML("afterbegin", HTML);
 	}
+	// BOARD VIEW
+
 	renderBoard() {
 		const HTML = this._generateBoardHtml();
 		this._parentElement.insertAdjacentHTML("afterbegin", HTML);
@@ -288,11 +213,14 @@ class PlayerView {
 								${!this._data.homeTurn ? this._data.home.id : this._data.away.id}">
 								<div class="body-exp"></div>
 								<div class="depth--exp"></div>
-							</div>
+						</div>
 						<div>
-									<h3>Player1, please select a coin</h3>
-								</div>
-							<button class="btn" type="button" data-toggle="restart">Reset Game</button>
+							<h3>Player1, please select a coin</h3>
+						</div>
+						<div>
+							<button class="btn reset__game" type="button" data-toggle="reset">Reset Game</button>
+							<button class="btn restart__game" type="button" data-toggle="restart">Restart Game</button>
+						</div>
 					
 					</div>
 					
@@ -345,6 +273,40 @@ class PlayerView {
 					</div>
 					
 				</div>
+				<div class="board__dimensions">
+				<h4>Enter the board dimension</h4>
+				
+					<div class="board__input">
+						<input
+							step="1"
+							min="6"
+							value="7"
+							max="15"
+							required
+							name="width"
+							type="number"
+							class="board__width"
+							id="board-width"
+							placeholder="width" />
+						<label for="board-width" class="label">Width</label>
+					</div>
+					<div class="board__input">
+						<input
+							step="1"
+							min="6"
+							max="15"
+							value="6"
+							required
+							name="height"
+							type="number"
+							class="board__width"
+							id="board-height"
+							placeholder="height" />
+						<label for="board-height" class="label">Height</label>
+					</div>
+			
+
+			</div>
 			</form>
 			<button type="submit" class="btn game__start">
 				Start game
@@ -353,5 +315,7 @@ class PlayerView {
 			`;
 	}
 }
+
+// 		`;
 
 export default new PlayerView();

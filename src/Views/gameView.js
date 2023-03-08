@@ -9,6 +9,7 @@ class GameView {
 	_getGameData(data) {
 		this._data = data;
 	}
+	//
 	// HANDLERS
 	gameStartHandler(handler) {
 		this._parentElement.addEventListener("click", e => {
@@ -17,38 +18,66 @@ class GameView {
 			handler(true);
 		});
 	}
-	modalInputHandler(handler) {
+	// modalInputHandler(handler) {
+	// 	try {
+	// 		this._parentElement.addEventListener("click", function (e) {
+	// 			const createBtn = e.target.closest(".create__board");
+	// 			if (!createBtn) return;
+
+	// 			const form = this.querySelector(".board__inputs");
+	// 			const dataArr = [...new FormData(form)];
+	// 			const data = Object.fromEntries(dataArr);
+
+	// 			handler(data);
+	// 		});
+	// 	} catch (err) {
+	// 		console.error(err);
+	// 	}
+	// }
+	// RESET GAME
+	resetGameHandler(handlerSet) {
 		try {
 			this._parentElement.addEventListener("click", function (e) {
-				const createBtn = e.target.closest(".create__board");
-				if (!createBtn) return;
+				const resetBtn = e.target.closest(".reset__game");
+				if (!resetBtn) return;
+				console.log(resetBtn);
 
-				const form = this.querySelector(".board__inputs");
-				const dataArr = [...new FormData(form)];
-				const data = Object.fromEntries(dataArr);
-
-				handler(data);
+				handlerSet(true);
 			});
 		} catch (err) {
 			console.error(err);
 		}
 	}
+	// RESTART GAME
+	restartGameHandler(handlerStart) {
+		try {
+			this._parentElement.addEventListener("click", function (e) {
+				const restartBtn = e.target.closest(".restart__game");
+				if (!restartBtn) return;
 
+				handlerStart(true);
+			});
+		} catch (err) {
+			console.error(err);
+		}
+	}
 	// RENDERS
 	renderStart() {
+		this._clear();
 		const HTML = this._generateStartHtml();
 
 		this._parentElement.insertAdjacentHTML("afterbegin", HTML);
 	}
 
 	// modal view
-	renderModal() {
-		this._clear();
-		const HTML = this._generateModalHtml();
+	// renderModal() {
+	// 	this._clear();
+	// 	const HTML = this._generateModalHtml();
 
-		this._parentElement.insertAdjacentHTML("afterbegin", HTML);
-	}
+	// 	this._parentElement.insertAdjacentHTML("afterbegin", HTML);
+	// }
 	// board View
+
 	renderBoard() {
 		this._clear();
 
@@ -96,53 +125,44 @@ class GameView {
 
 		// return<!--<input type="button" class="board__disc" data-position=${label[0]},${label[1]} />-->
 	}
-	_generateModalHtml() {
-		return `
-		<div class="board__modal">
-				<h4>Enter the board dimension</h4>
-				<form class="board__inputs">
-					<div class="board__input">
-						<input
-							step="1"
-							min="6"
-							value="7"
-							max="15"
-							required
-							name="width"
-							type="number"
-							class="board__width"
-							id="board-width"
-							placeholder="width" />
-						<label for="board-width" class="label">Width</label>
-					</div>
-					<div class="board__input">
-						<input
-							step="1"
-							min="6"
-							max="15"
-							value="6"
-							required
-							name="height"
-							type="number"
-							class="board__width"
-							id="board-height"
-							placeholder="height" />
-						<label for="board-height" class="label">Height</label>
-					</div>
-					<div class="board__piece">
-						<h4>Select a game piece shape</h4>
-						<select name="piece" id="board__piece" title="Select">
-							<option value="circle">Circle</option>
-							<option value="square">Square</option>
-							<option value="Triangle">Triangle</option>
-							<option value="kite">Kite</option>
-						</select>
-					</div>
-				</form>
+	// _generateModalHtml() {
+	// 	return `
+	// 	<div class="board__modal">
+	// 			<h4>Enter the board dimension</h4>
+	// 			<form class="board__inputs">
+	// 				<div class="board__input">
+	// 					<input
+	// 						step="1"
+	// 						min="6"
+	// 						value="7"
+	// 						max="15"
+	// 						required
+	// 						name="width"
+	// 						type="number"
+	// 						class="board__width"
+	// 						id="board-width"
+	// 						placeholder="width" />
+	// 					<label for="board-width" class="label">Width</label>
+	// 				</div>
+	// 				<div class="board__input">
+	// 					<input
+	// 						step="1"
+	// 						min="6"
+	// 						max="15"
+	// 						value="6"
+	// 						required
+	// 						name="height"
+	// 						type="number"
+	// 						class="board__width"
+	// 						id="board-height"
+	// 						placeholder="height" />
+	// 					<label for="board-height" class="label">Height</label>
+	// 				</div>
+	// 			</form>
 
-				<button class="btn create__board" type="submit">Create Board</button>
-			</div>`;
-	}
+	// 			<button class="btn create__board" type="submit">Create Board</button>
+	// 		</div>`;
+	// }
 	_generateStartHtml() {
 		return `
 		<div class="game__view">

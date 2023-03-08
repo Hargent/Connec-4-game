@@ -11,11 +11,6 @@ const state = {
 		isStart: false,
 		isDraw: false,
 		isEnd: false,
-		history: {
-			home: 6,
-			away: 7,
-			draw: 2,
-		},
 	},
 	players: {
 		set: false,
@@ -59,7 +54,6 @@ const saveBoardDetails = data => {
 	(gameState.dimensions = [data.width, data.height]),
 		(gameState.labels = data.algoData[0]),
 		(gameState.combos = data.algoData[1]),
-		(gameState.pieces = data.pieces),
 		(gameState.create = !gameState.create);
 
 	if (gameState.create) {
@@ -169,32 +163,52 @@ const gameStatus = () => {
 	}
 };
 /**
-//  * Resets the game state to the initial state
-//  */
-// const restartGame = () => {
-// 	state.game = {
-// 		data: {
-// 			dimensions: [3, 3],
-// 			labels: [],
-// 			winningCombos: [],
-// 		},
-// 		isEnd: false,
-// 		isDraw: false,
-// 	};
-// 	state.player = {
-// 		homeWin: null,
-// 		homeTurn: false,
-// 		home: {
-// 			name: "circle",
-// 			inputs: [],
-// 		},
-// 		away: {
-// 			name: "x",
-// 			inputs: [],
-// 		},
-// 	};
-// };
-// const updateBoardState = data => {};
+ * Resets the game state to the initial state
+ */
+const resetGame = () => {
+	state.game.isDraw = false;
+	state.game.isEnd = false;
+
+	state.players.set = true;
+	state.players.homeTurn = false;
+	state.players.homeWin = null;
+	state.players.home.inputs = [];
+
+	state.players.away.inputs = [];
+};
+const restartGame = () => {
+	state.game = {
+		data: {
+			create: false,
+			dimensions: [6, 7],
+			labels: [],
+			combos: [],
+		},
+		isStart: false,
+		isDraw: false,
+		isEnd: false,
+	};
+	state.players = {
+		set: false,
+		homeTurn: false,
+		homeWin: null,
+		home: {
+			id: "home",
+			name: "",
+			avatar: "HM",
+			color: "blue",
+			inputs: [],
+		},
+		away: {
+			id: "away",
+			name: "",
+			avatar: "AY",
+			color: "green",
+			inputs: [],
+		},
+	};
+};
+
 export {
 	state,
 	savePlayerDetails,
@@ -202,4 +216,6 @@ export {
 	generateGameData,
 	saveInputs,
 	gameStatus,
+	resetGame,
+	restartGame,
 };
