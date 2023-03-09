@@ -1,5 +1,6 @@
 :root {
 	--primary-color: #1be7ff;
+	--primary-color-dark: #2f50d1;
 	--secondary-color: #6eeb83;
 	--tertiary-color: #e8aa14;
 	--light-color: #e4ff1a;
@@ -81,9 +82,6 @@ body {
 	border: none;
 	outline: none;
 
-	// $home-color: red;
-	// $home-color: customLighten(--query-home-color, 0);
-	// display: none;
 	position: relative;
 	& > .body-exp {
 		// display: none;
@@ -104,12 +102,7 @@ body {
 			customLighten(--query-home-color, 2) 85%,
 			customLighten(--query-home-color, -9) 100%
 		);
-		// lighten($home-color, 5%) 70%,
-		// lighten($home-color, 7%) 70%,
-		// lighten($home-color, 2%) 85%,
-		// darken($home-color, 9%) 100%
 
-		// box-shadow: 0px 1px 2px 3px darken($home-color, 20%);
 		box-shadow: 0px 1px 2px 3px customLighten(--query-home-color, 20);
 	}
 	& > .depth--exp {
@@ -129,8 +122,6 @@ body {
 			customLighten(--query-home-color, -13) 30%,
 			customLighten(--query-home-color, 18) 80%
 		);
-		// darken($home-color, 13%) 30%,
-		// lighten($home-color, 18%) 80%
 	}
 }
 
@@ -139,10 +130,6 @@ body {
 	border: none;
 	outline: none;
 
-	// $away-color: blue;
-	// $away-color: customLighten(--query-away-color, 0);
-	// $color: blue;
-	// display: none;
 	position: relative;
 	& > .body-exp {
 		// display: none;
@@ -189,15 +176,5 @@ body {
 			customLighten(--query-away-color, -13) 30%,
 			customLighten(--query-away-color, 18) 80%
 		);
-		// darken($away-color, 13%) 30%,
-		// lighten($away-color, 18%) 80%
 	}
 }
-
-/*!SECTION"watch:sass": "sass sass/main.scss css/style.css -w",
-		"devserver": "live-server",
-		"dev": "npm-run-all --parallel watch:sass devserver",
-		"compile:sass": "sass sass/main.scss css/style.comp.css",
-		"prefix:css": "postcss --use autoprefixer -b 'last 10 versions' css/style.comp.css -o css/style.prefix.css",
-		"compress:css": "sass css/style.prefix.css css/style.css --style=compressed",
-		"build:css": "npm-run-all compile:sass concat:css prefix:css compress:css",*/

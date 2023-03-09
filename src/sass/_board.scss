@@ -3,8 +3,11 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background-color: fuchsia;
-	padding: 3rem;
+	background-color: var(--primary-color-dark);
+	padding: 3rem 5rem;
+
+	border-top-left-radius: 50%;
+	border-top-right-radius: 50%;
 
 	cursor: none;
 	h3 {

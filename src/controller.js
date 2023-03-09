@@ -22,7 +22,6 @@ const generateGameData = () => {
 
 const AIGameControl = () => {
 	gameView.renderStart();
-	// cursor.init();
 };
 
 const controlGameStart = data => {

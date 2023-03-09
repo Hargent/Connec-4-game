@@ -289,12 +289,13 @@ class PlayerView {
 					<div>
 						<label for="player-1-color">Color</label>
 						<select  id="player-1-color" title="Select" name="homeColor">
-							<option value="purple"></option>
+							<option value="purple">Purple</option>
 							<option value="red">Red</option>
-							<option value="green">Green</option>
-							<option value="yellow">Yellow</option>
-							<option value="blue">Blue</option>
+							<option value="maroon">Maroon</option>
+							<option value="indigo">Indigo</option>
+							<option value="cyan">Cyan</option>
 						</select>
+						
 					</div>
 					
 				</div>
@@ -310,8 +311,8 @@ class PlayerView {
 					<div>
 					<label for="player-2-color">Color</label>
 					<select  id="player-2-color" title="Select" name="awayColor">
-							<option value="gold"></option>
-							<option value="red">Red</option>
+							<option value="gold">Gold</option>
+							<option value="magenta">Magenta</option>
 							<option value="green">Green</option>
 							<option value="yellow">Yellow</option>
 							<option value="blue">Blue</option>
@@ -362,6 +363,13 @@ class PlayerView {
 	}
 }
 
-// 		`;
+// 	${data.away.colors.map(
+// 			color =>
+// 				`<option value=${color}><span style="background-color:${color};height:1rem;width:1rem;border-radius:50%;></span></option>`
+// 		)}
+// ${data.home.colors.map(
+// 	color =>
+// 		`<option value=${color}><span style="background-color:${color};height:1rem;width:1rem;border-radius:50%;></span></option>`
+// )}	`;
 
 export default new PlayerView();
