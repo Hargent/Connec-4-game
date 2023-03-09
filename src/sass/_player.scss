@@ -156,6 +156,7 @@
 	justify-content: space-between;
 	align-items: center;
 	h3 {
+		margin-top: 2rem;
 		padding: 1rem 2rem;
 		border-radius: 5px;
 		background-image: linear-gradient(
@@ -163,5 +164,6 @@
 			var(--light-color),
 			var(--dark-color)
 		);
+		text-transform: capitalize;
 	}
 }

@@ -6,12 +6,12 @@ class PlayerView {
 	_root = document.querySelector(":root");
 	_parentElement = document.querySelector(".game");
 	_data;
-	_currentPlayer;
+	_nextPlayer;
 
 	_getPlayerData(data) {
 		this._data = data;
 
-		this._currentPlayer = this._data.homeTurn
+		this._nextPlayer = this._data.homeTurn
 			? this._data.away.id
 			: this._data.home.id;
 	}
@@ -30,25 +30,29 @@ class PlayerView {
 			});
 		return set;
 	};
+	updateWinner(data) {
+		this._updateWinner(data);
+	}
 	/**
 	 *
 	 * @param {Number[]} target 2D coordinates of a point of event
 	 * @returns Void Only when cells are clicked twice
 	 */
-	placeMark(target) {
+	placeMark(target, isEnd) {
+		if (isEnd) return;
 		const cell = document.querySelector(
 			`[data-position="${target.join(",")}"]`
 		);
 		const icons = this._parentElement.querySelectorAll(".player__icon");
 
-		this._currentPlayer = this._data.homeTurn
+		this._nextPlayer = this._data.homeTurn
 			? this._data.home.id
 			: this._data.away.id;
 
 		[...icons].map(icon => {
 			if (
 				!icon.isEqualNode(
-					document.querySelector(`.${this._currentPlayer}-icon`)
+					document.querySelector(`.${this._nextPlayer}-icon`)
 				)
 			) {
 				const color = !this._data.homeTurn
@@ -86,11 +90,45 @@ class PlayerView {
 		this._root.style.setProperty("--query-away-color-s", awayCol[1]);
 		this._root.style.setProperty("--query-away-color-l", awayCol[2]);
 
-		if (cell?.classList.length > 1 || this._data.homeWin !== null) {
+		if (cell?.classList.length > 1 || this._data.winner !== null) {
 			cell?.classList.add("disabled");
 			return;
 		}
-		cell.classList.add(this._currentPlayer);
+		cell.classList.add(this._nextPlayer);
+	}
+	_updateWinner(data) {
+		// changing player names
+		// console.log(data);
+		const gameAI = document.querySelector(".current__Player");
+
+		let content = "";
+		console.log(data.homeWin);
+		console.log(data.winner);
+		if (data.winner !== null) {
+			console.log(data.homeWin);
+			// console.log(data.winner);
+			content = `${data.winner} Wins`;
+		} else {
+			if (data.homeTurn === null) {
+				content =
+					data.winner === null ? `It is a draw` : `${data.winner}`;
+			}
+			if (!data.homeTurn) {
+				content = `${
+					data.home.name === ""
+						? `${data.home.id} player`
+						: `${data.home.name}`
+				} , please select a coin spot`;
+			} else {
+				content = `${
+					data.away.name === ""
+						? `${data.away.id} player`
+						: `${data.away.name}`
+				} , please select a coin spot`;
+			}
+		}
+
+		gameAI.textContent = content;
 	}
 	// HANDLERS
 	playerDetailsHandler(handler) {
@@ -174,7 +212,6 @@ class PlayerView {
 	}
 	// GENERATORS
 	_generateBoardHtml() {
-		console.log(this._data.isEnd, this._data.isDraw);
 		return `<div class="players__display">
 					<div>
 						<div>
@@ -209,14 +246,22 @@ class PlayerView {
 					<div>
 					<div >
 						<div class="winner-box">			
-							<div type="button" class="
-								${this._data.isEnd ? "" : "hidden"}
-								${!this._data.homeTurn ? this._data.home.id : this._data.away.id}">
+							<div type="button" class="hidden">
 								<div class="body-exp"></div>
 								<div class="depth--exp"></div>
 							</div>
 						
-							<h3>Player1, please select a coin</h3>
+							<h3 class="current__Player">
+					 ${
+							!this._data.homeTurn
+								? this._data.home.name === ""
+									? this._data.home.id
+									: this._data.home.name
+								: this._data.away.name === ""
+								? this._data.away.id
+								: this._data.away.name
+						} player
+					, please select a coin</h3>
 						</div>
 						<div class="btn-box">
 							<button class="btn reset__game" type="button" data-toggle="reset">Reset Game</button>

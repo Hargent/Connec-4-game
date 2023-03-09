@@ -16,6 +16,7 @@ const state = {
 		set: false,
 		homeTurn: false,
 		homeWin: null,
+		winner: null,
 		home: {
 			id: "home",
 			name: "",
@@ -109,7 +110,7 @@ const saveInputs = target => {
 		state.players.homeTurn = state.players.homeTurn;
 		return;
 	}
-	if (state.players.homeWin !== null) return;
+	if (state.players.winner !== null) return;
 	state.players.homeTurn = !state.players.homeTurn;
 
 	state.players.homeTurn
@@ -149,16 +150,33 @@ const gameStatus = () => {
 	if (state.game.isEnd) return;
 	let currentPlayer;
 	if (state.players.homeTurn === null) return;
-	state.players.homeTurn
-		? (currentPlayer = state.players.away.id)
-		: (currentPlayer = state.players.home.id);
+	!state.players.homeTurn
+		? (currentPlayer =
+				state.players.away.name === ""
+					? state.players.away.id
+					: state.players.away.name)
+		: (currentPlayer =
+				state.players.home.name === ""
+					? state.players.home.id
+					: state.players.home.name);
 
 	if (checkWin()) {
-		state.players.homeWin = currentPlayer;
+		state.players.winner = currentPlayer;
+		if (
+			state.players.winner === state.players.home.id ||
+			state.players.winner === state.players.home.name
+		) {
+			state.players.homeWin = true;
+		} else if (
+			state.players.winner === state.players.away.id ||
+			state.players.winner === state.players.away.name
+		) {
+			state.players.homeWin = false;
+		}
 		state.players.homeTurn = null;
 		state.game.isEnd = true;
 	} else if (checkDraw()) {
-		state.players.homeWin = "draw";
+		state.players.winner = "draw";
 		state.players.homeTurn = null;
 		state.game.isEnd = true;
 		state.game.isDraw = true;
@@ -173,7 +191,7 @@ const resetGame = () => {
 
 	state.players.set = true;
 	state.players.homeTurn = false;
-	state.players.homeWin = null;
+	state.players.winner = null;
 	state.players.home.inputs = [];
 
 	state.players.away.inputs = [];
@@ -193,7 +211,7 @@ const restartGame = () => {
 	state.players = {
 		set: false,
 		homeTurn: false,
-		homeWin: null,
+		winner: null,
 		home: {
 			id: "home",
 			name: "",

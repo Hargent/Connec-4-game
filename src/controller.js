@@ -40,19 +40,23 @@ const controlPlayerDetails = data => {
 	gameView.renderBoard();
 	playerView.renderBoard();
 	cursor.init();
-	//
+
 	// gameView.renderModal();
 };
 
 const controlGamePlay = target => {
-	if (!model.state.game.isEnd) {
-		model.saveInputs(target);
-		playerView.placeMark(target);
-		model.gameStatus();
+	// if (model.state.game.isEnd) return;
+
+	model.saveInputs(target);
+	playerView.updateWinner(model.state.players);
+	playerView.placeMark(target, model.state.game.isEnd);
+	model.gameStatus();
+
+	if (model.state.game.isEnd) {
+		console.log("Game over");
+		playerView.updateWinner(model.state.players);
+		return;
 	}
-	console.log(model.state.game.isEnd);
-	console.log("Game over");
-	return;
 };
 
 /**
