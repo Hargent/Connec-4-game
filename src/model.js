@@ -22,6 +22,7 @@ const state = {
 			avatar: "HM",
 			color: "blue",
 			inputs: [],
+			colors: [],
 		},
 		away: {
 			id: "away",
@@ -29,6 +30,7 @@ const state = {
 			avatar: "AY",
 			color: "green",
 			inputs: [],
+			colors: [],
 		},
 	},
 };

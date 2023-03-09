@@ -30,7 +30,6 @@ const controlGameStart = data => {
 	playerView.render();
 };
 const controlPlayerDetails = data => {
-	console.log(data);
 	model.savePlayerDetails(data);
 	const algoData = gameAlgo._gameAlgo([data.width, data.height]);
 	data.algoData = algoData;
@@ -44,19 +43,7 @@ const controlPlayerDetails = data => {
 	//
 	// gameView.renderModal();
 };
-// const controlCreateBoard = data => {
-// 	// generate labels and combos
-// 	const algoData = gameAlgo._gameAlgo([data.width, data.height]);
-// 	data.algoData = algoData;
 
-// 	model.saveBoardDetails(data);
-// 	generateGameData();
-
-// 	gameView.renderBoard();
-// 	playerView.renderBoard();
-// 	cursor.init();
-// 	//
-// };
 const controlGamePlay = target => {
 	if (!model.state.game.isEnd) {
 		model.saveInputs(target);
@@ -64,10 +51,8 @@ const controlGamePlay = target => {
 		model.gameStatus();
 	}
 	console.log(model.state.game.isEnd);
-	if (model.state.game.isEnd) {
-		console.log("Game Over");
-		return;
-	}
+	console.log("Game over");
+	return;
 };
 
 /**
@@ -76,7 +61,6 @@ const controlGamePlay = target => {
  * @returns Void only if the game is not to be restarted
  */
 const controlResetGame = reset => {
-	console.log(reset);
 	if (!reset) return;
 	model.resetGame();
 
@@ -100,7 +84,6 @@ const controlRestartGame = restart => {
  */
 const init = () => {
 	AIGameControl();
-	// gameView.modalInputHandler(controlCreateBoard);
 	playerView.playerInputHandler(controlGamePlay);
 	gameView.gameStartHandler(controlGameStart);
 	playerView.playerDetailsHandler(controlPlayerDetails);

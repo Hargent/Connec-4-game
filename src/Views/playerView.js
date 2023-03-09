@@ -174,6 +174,7 @@ class PlayerView {
 	}
 	// GENERATORS
 	_generateBoardHtml() {
+		console.log(this._data.isEnd, this._data.isDraw);
 		return `<div class="players__display">
 					<div>
 						<div>
@@ -206,18 +207,18 @@ class PlayerView {
 					</h1>
 					</div>
 					<div>
-					
-						<div>			
-								<div type="button" class="
-								${this._data.isEnd && !this._data.isDraw ? "" : "hidden"}
+					<div >
+						<div class="winner-box">			
+							<div type="button" class="
+								${this._data.isEnd ? "" : "hidden"}
 								${!this._data.homeTurn ? this._data.home.id : this._data.away.id}">
 								<div class="body-exp"></div>
 								<div class="depth--exp"></div>
-						</div>
-						<div>
+							</div>
+						
 							<h3>Player1, please select a coin</h3>
 						</div>
-						<div>
+						<div class="btn-box">
 							<button class="btn reset__game" type="button" data-toggle="reset">Reset Game</button>
 							<button class="btn restart__game" type="button" data-toggle="restart">Restart Game</button>
 						</div>

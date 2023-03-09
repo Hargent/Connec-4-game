@@ -151,9 +151,9 @@
   --away-color: #0000ff;
   --cursor-primary: #dc5656;
   --cursor-primary-light: #ea9999;
-  --cursor-primary-light-h:200;
-  --cursor-primary-light-s:90%;
-  --cursor-primary-light-l:56%;
+  --cursor-primary-light-h: 200;
+  --cursor-primary-light-s: 90%;
+  --cursor-primary-light-l: 56%;
   --query-home-color: hsl(45, 32, 56);
   --query-home-color-h: 220;
   --query-home-color-s: 90%;
@@ -182,11 +182,8 @@ body {
   height: 100vh;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.game {
+  position: relative;
 }
 
 .hidden {
@@ -337,14 +334,25 @@ body {
 }
 
 .players__display {
-  width: 60vw;
-  display: flex;
+  width: 80vw;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   align-items: center;
   justify-content: center;
   margin-bottom: 2rem;
 }
-.players__display > *:not(:last-child) {
-  margin-right: auto;
+.players__display > * {
+  justify-self: end;
+}
+.players__display > *:first-child {
+  justify-self: unset;
+}
+.players__display > *:last-child {
+  width: 40%;
+  margin-top: 2rem;
+  grid-column: 1/-1;
+  justify-self: center;
+  align-content: center;
 }
 
 .player__icon {
@@ -383,6 +391,31 @@ body {
   transform: translateY(1rem);
   transition: var(--transition);
   text-align: center;
+}
+
+.btn-box {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  display: flex;
+  align-items: center;
+}
+.btn-box > *:first-child {
+  margin-right: auto;
+}
+
+.winner-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.winner-box h3 {
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  background-image: linear-gradient(120deg, var(--light-color), var(--dark-color));
 }
 
 .cursor-dot,

@@ -20,9 +20,9 @@
 
 	--cursor-primary: #dc5656;
 	--cursor-primary-light: #ea9999;
-	--cursor-primary-light-h:200;
---cursor-primary-light-s:90%;
---cursor-primary-light-l:56%;
+	--cursor-primary-light-h: 200;
+	--cursor-primary-light-s: 90%;
+	--cursor-primary-light-l: 56%;
 
 	// for changing color lightness for home
 
@@ -58,11 +58,8 @@ body {
 	height: 100vh;
 	// background-color: var(--primary-color);
 }
-.container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+.game {
+	position: relative;
 }
 .hidden {
 	opacity: 0;
