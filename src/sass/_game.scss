@@ -5,6 +5,7 @@
 	justify-content: center;
 	// background-image: var(--gradient);
 	background-image: var(--gradient-1);
+
 	&__view {
 		width: 100%;
 		text-align: center;
@@ -20,7 +21,7 @@
 			margin-bottom: 1.75rem;
 		}
 		img {
-			width: 43%;
+			width: 40%;
 		}
 	}
 }
