@@ -107,7 +107,7 @@ class GameView {
 		<div class="game__view">
 						<h1>Welcome to connect 4</h1>
 						<h4>Ready to battle ?</h4>
-						<img src="${imageName}" alt="Connect 4" />
+						<img src=${imageName} alt="Connect 4">
 						<button type="submit" class="btn play__now">Play now</button>
 					</div>
 				`;
