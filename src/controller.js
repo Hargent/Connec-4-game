@@ -96,5 +96,4 @@ const init = () => {
 
 init();
 
-// function that swap cyurrent playrer
-// function that places color
+

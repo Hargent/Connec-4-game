@@ -28,27 +28,6 @@ const gridArea = (height, width, arr = [], iterH = 0, iterW = 0) => {
 	return arr;
 };
 
-// /**
-//  *
-//  * @param {Number[]} dimensions
-//  * @returns{[Number[]]} Returns 2D labels for each grid item
-//  */
-// const gridArea = dimensions => {
-// 	const arr = [...Array(dimensions[0] * dimensions[0])].map((_, i) => [
-// 		i % dimensions[0],
-// 		Math.floor(i / dimensions[0]),
-// 	]);
-// 	if (dimensions[0] - dimensions[1] < 0) {
-// 		console.log("not equal pop width");
-// 	}
-// 	if (dimensions[0] - dimensions[1] > 0) {
-// 		console.log(arr);
-// 		arr.splice(arr.length - 1 - dimensions[1], arr.length);
-// 		console.log("not equal pop height");
-// 		console.log(arr);
-// 	}
-// 	return arr;
-// };
 // console.log(gridArea(7, 8));
-// console.log(gridArea([7, 6]));
+
 export default gridArea;

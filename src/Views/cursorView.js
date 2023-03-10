@@ -33,10 +33,7 @@ class Cursor {
 			this.#cursorEnlarged = true;
 			this.toggleCursorSize();
 		});
-		// this._root.style.setProperty(
-		// 	"--background-color",
-		// 	data.color[data.mode]
-		// );
+
 		document.addEventListener("mouseup", e => {
 			if (!e.target.closest(".board")) return;
 			this.#cursorEnlarged = false;

@@ -97,17 +97,15 @@ class PlayerView {
 		cell.classList.add(this._nextPlayer);
 	}
 	_updateWinner(data) {
-		// changing player names
-		// console.log(data);
 		const gameAI = document.querySelector(".current__Player");
-
+		const winnerFlag = document.querySelector(".winner-flag");
 		let content = "";
-		console.log(data.homeWin);
-		console.log(data.winner);
+
 		if (data.winner !== null) {
-			console.log(data.homeWin);
-			// console.log(data.winner);
 			content = `${data.winner} Wins`;
+
+			winnerFlag.classList.toggle("hidden");
+			winnerFlag.classList.toggle(data.winner);
 		} else {
 			if (data.homeTurn === null) {
 				content =
@@ -153,7 +151,6 @@ class PlayerView {
 		this._parentElement.addEventListener("click", e => {
 			try {
 				const disc = e.target.closest(".board__disc");
-
 				if (!disc) return;
 
 				const target = disc.dataset.position
@@ -224,7 +221,6 @@ class PlayerView {
 							</svg>
 					
 						</div>
-						<img src="#" alt="${this._data.home.avatar}">
 						<h1>${this._data.home.name !== "" ? this._data.home.name : this._data.home.id}
 						
 					</div>
@@ -239,14 +235,14 @@ class PlayerView {
 							</svg>
 							
 						</div>
-					<img src="#" alt="${this._data.away.avatar}">
+					
 					<h1>${this._data.away.name !== "" ? this._data.away.name : this._data.away.id}
 					</h1>
 					</div>
 					<div>
 					<div >
 						<div class="winner-box">			
-							<div type="button" class="hidden">
+							<div type="button" class="winner-flag hidden">
 								<div class="body-exp"></div>
 								<div class="depth--exp"></div>
 							</div>
@@ -363,13 +359,5 @@ class PlayerView {
 	}
 }
 
-// 	${data.away.colors.map(
-// 			color =>
-// 				`<option value=${color}><span style="background-color:${color};height:1rem;width:1rem;border-radius:50%;></span></option>`
-// 		)}
-// ${data.home.colors.map(
-// 	color =>
-// 		`<option value=${color}><span style="background-color:${color};height:1rem;width:1rem;border-radius:50%;></span></option>`
-// )}	`;
 
 export default new PlayerView();

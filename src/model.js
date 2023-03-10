@@ -20,14 +20,12 @@ const state = {
 		home: {
 			id: "home",
 			name: "",
-			avatar: "HM",
 			color: "blue",
 			inputs: [],
 		},
 		away: {
 			id: "away",
 			name: "",
-			avatar: "AY",
 			color: "green",
 			inputs: [],
 		},

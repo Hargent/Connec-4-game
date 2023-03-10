@@ -4,66 +4,24 @@
 	justify-content: center;
 	align-items: center;
 	background-color: var(--primary-color-dark);
-	padding: 3rem 5rem;
+	padding: 1.5rem 2rem;
 
-	border-top-left-radius: 50%;
-	border-top-right-radius: 50%;
+	border-top-left-radius: 1rem;
+	border-top-right-radius: 1rem;
 
 	cursor: none;
 	h3 {
 		font-size: 1rem;
 	}
 
-	//modal styles
-	&__modal {
-		position: absolute;
-		width: 20%;
-		border-radius: 4px;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		height: 30%;
-		background-color: var(--tertiary-color);
-
-		z-index: 10;
-
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-
-		color: var(--dark-color);
-		& > *:not(:last-child) {
-			margin-bottom: 1rem;
-		}
-
-		h4 {
-			margin-bottom: 1rem;
-		}
-	}
 	&__inputs {
 		display: grid;
 		grid-template-columns: 50% 50%;
-		column-gap: 5%;
+		column-gap: 0.5rem;
 		text-align: center;
 
 		& > *:not(:last-child) {
-			margin-bottom: 1rem;
-		}
-	}
-	&__piece {
-		display: grid;
-		justify-content: stretch;
-		grid-column: 1/-1;
-		select {
-			border-radius: 4px;
-			text-align: center;
-			padding: 0.3rem 0;
-		}
-		select:focus,
-		select:active {
-			border: none;
-			outline: none;
+			margin-bottom: 0.5rem;
 		}
 	}
 
@@ -92,7 +50,7 @@
 	//view styles
 	&__view {
 		display: grid;
-		gap: 1rem;
+		gap: 0.5rem;
 
 		cursor: none;
 		div {
@@ -110,10 +68,10 @@
 	}
 	// disc styles
 	&__disc {
-		width: 3.75rem;
-		height: 3.75rem;
+		width: 2.5rem;
+		height: 2.5rem;
 		border-radius: 50%;
-		padding: 0.5rem;
+		padding: 0.2rem;
 		cursor: none;
 
 		display: flex;
@@ -121,31 +79,12 @@
 		align-items: center;
 		justify-content: center;
 
-		border: 1px solid currentColor;
+		// border: 1px solid currentColor;
 
 		background-color: rgb(44, 2, 44);
 	}
 	&__title {
 		text-transform: uppercase;
 		margin: 1rem 0;
-	}
-}
-.btn {
-	padding: 1rem;
-	border-radius: 10rem;
-	border: none;
-	background-image: var(--gradient);
-	transform: translateY(0);
-	transition: var(--transition);
-	cursor: pointer;
-	margin-top: 2rem;
-	color: #fff;
-	font-size: 1rem;
-	&:hover {
-		box-shadow: 0 4px 4px rgba(rgb(255, 94, 0), var(--shadow));
-	}
-	&:active {
-		transform: translateY(0.5rem);
-		box-shadow: none;
 	}
 }

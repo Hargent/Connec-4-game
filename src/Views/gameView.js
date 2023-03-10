@@ -18,22 +18,7 @@ class GameView {
 			handler(true);
 		});
 	}
-	// modalInputHandler(handler) {
-	// 	try {
-	// 		this._parentElement.addEventListener("click", function (e) {
-	// 			const createBtn = e.target.closest(".create__board");
-	// 			if (!createBtn) return;
 
-	// 			const form = this.querySelector(".board__inputs");
-	// 			const dataArr = [...new FormData(form)];
-	// 			const data = Object.fromEntries(dataArr);
-
-	// 			handler(data);
-	// 		});
-	// 	} catch (err) {
-	// 		console.error(err);
-	// 	}
-	// }
 	// RESET GAME
 	resetGameHandler(handlerSet) {
 		try {
@@ -69,13 +54,6 @@ class GameView {
 		this._parentElement.insertAdjacentHTML("afterbegin", HTML);
 	}
 
-	// modal view
-	// renderModal() {
-	// 	this._clear();
-	// 	const HTML = this._generateModalHtml();
-
-	// 	this._parentElement.insertAdjacentHTML("afterbegin", HTML);
-	// }
 	// board View
 
 	renderBoard() {
@@ -122,47 +100,8 @@ class GameView {
 						</section>`;
 		const HTML = [html_1, html_2, html_3].join("");
 		return HTML;
-
-		// return<!--<input type="button" class="board__disc" data-position=${label[0]},${label[1]} />-->
 	}
-	// _generateModalHtml() {
-	// 	return `
-	// 	<div class="board__modal">
-	// 			<h4>Enter the board dimension</h4>
-	// 			<form class="board__inputs">
-	// 				<div class="board__input">
-	// 					<input
-	// 						step="1"
-	// 						min="6"
-	// 						value="7"
-	// 						max="15"
-	// 						required
-	// 						name="width"
-	// 						type="number"
-	// 						class="board__width"
-	// 						id="board-width"
-	// 						placeholder="width" />
-	// 					<label for="board-width" class="label">Width</label>
-	// 				</div>
-	// 				<div class="board__input">
-	// 					<input
-	// 						step="1"
-	// 						min="6"
-	// 						max="15"
-	// 						value="6"
-	// 						required
-	// 						name="height"
-	// 						type="number"
-	// 						class="board__width"
-	// 						id="board-height"
-	// 						placeholder="height" />
-	// 					<label for="board-height" class="label">Height</label>
-	// 				</div>
-	// 			</form>
 
-	// 			<button class="btn create__board" type="submit">Create Board</button>
-	// 		</div>`;
-	// }
 	_generateStartHtml() {
 		return `
 		<div class="game__view">
@@ -175,23 +114,4 @@ class GameView {
 	}
 }
 
-// /**
-//  *
-//  * @param {()=>{}} handlerON A controller handler function that is called to handle the hover-ON event
-//  * @param { ()=>{}} handlerOUT A controller handler function that is called to handle the hover-OFF event
-//  */
-// gameHoverHandler(handlerON, handlerOUT) {
-// 	this._parentElement.addEventListener("mouseover", e => {
-// 		const cellBtn = e.target.closest(".cell");
-// 		if (!cellBtn) return;
-
-// 		handlerON(cellBtn);
-// 	});
-// 	this._parentElement.addEventListener("mouseout", e => {
-// 		const cellBtn = e.target.closest(".cell");
-// 		if (!cellBtn) return;
-
-// 		handlerOUT(cellBtn);
-// 	});
-// }
 export default new GameView();
