@@ -103,7 +103,7 @@ class GameView {
 	}
 
 	_generateStartHtml() {
-		return `
+		const html = `
 		<div class="game__view">
 						<h1>Welcome to connect 4</h1>
 						<h4>Ready to battle ?</h4>
@@ -112,6 +112,8 @@ class GameView {
 						<button type="submit" class="btn play__now">Play now</button>
 					</div>
 				`;
+
+		return html;
 	}
 }
 // <img src=${imageName} alt="Connect 4">
