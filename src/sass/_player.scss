@@ -1,7 +1,7 @@
 .player__details {
 	width: 60%;
 	background-image: var(--gradient-2);
-	padding: 2rem;
+	padding: 1rem;
 
 	display: flex;
 	flex-direction: column;
@@ -9,13 +9,13 @@
 
 	text-align: center;
 	& > *:not(:last-child) {
-		margin-bottom: 2.5rem;
+		margin-bottom: 1.25rem;
 	}
 	.players__form {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 
-		gap: 2rem;
+		gap: 1rem;
 
 		.player {
 			// display: grid;
@@ -39,24 +39,12 @@
 
 				font-size: 0.7rem;
 			}
-			label {
-				transform: translateY(1rem);
-				transition: var(--transition);
-				text-align: left;
-			}
 
 			input:active,
 			input:focus,
 			select:active,
 			select:focus {
 				border: 1px solid var(--secondary-color);
-			}
-
-			input:active label,
-			input:focus label,
-			select:active label,
-			select:focus label {
-				transform: translateY(-1rem);
 			}
 		}
 	}
@@ -67,13 +55,28 @@
 		align-self: center;
 	}
 }
+.player-color {
+	display: flex;
+	align-items: center;
+
+	width: 50%;
+	justify-content: center;
+	& > *:first-child {
+		margin-right: auto;
+		&::after {
+			content: ":";
+			margin-left: 0.5rem;
+		}
+	}
+}
+
 .players__display {
 	width: 80vw;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	align-items: center;
 	justify-content: center;
-	margin-bottom: 2rem;
+	margin-bottom: 1rem;
 	& > * {
 		justify-self: end;
 	}
@@ -83,7 +86,7 @@
 
 	& > *:last-child {
 		width: 40%;
-		margin-top: 2rem;
+		margin-top: 1rem;
 		grid-column: 1/-1;
 		justify-self: center;
 		align-content: center;
@@ -96,6 +99,10 @@
 	height: 2.5rem;
 	fill: #fff;
 }
+.player-logo {
+	position: fixed;
+	top: 10%;
+}
 .board__dimensions {
 	width: 80%;
 	display: grid;
@@ -103,11 +110,11 @@
 
 	grid-column: 1/-1;
 
-	gap: 2rem;
+	gap: 1rem;
 
 	justify-self: center;
 
-	margin-top: 2rem;
+	margin-top: 1rem;
 	& > *:first-child {
 		grid-column: 1/-1;
 		width: 70%;
@@ -125,7 +132,7 @@
 			transform: uppercase;
 		}
 
-		font-size: 2rem;
+		font-size: 1rem;
 	}
 	label {
 		transform: translateY(1rem);
@@ -135,11 +142,11 @@
 }
 .btn-box {
 	position: absolute;
-	bottom: 5%;
+	bottom: 2%;
 	left: 50%;
 
 	transform: translateX(-50%);
-	width: 50%;
+	width: 80%;
 
 	display: flex;
 
@@ -156,8 +163,8 @@
 	justify-content: space-between;
 	align-items: center;
 	h3 {
-		margin-top: 2rem;
-		padding: 1rem 2rem;
+		margin-top: 1rem;
+		padding: 0.5rem 1rem;
 		border-radius: 5px;
 		background-image: linear-gradient(
 			120deg,

@@ -178,7 +178,9 @@ html {
 body {
   box-sizing: inherit;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  max-height: -moz-max-content;
+  max-height: max-content;
   position: relative;
 }
 
@@ -269,7 +271,7 @@ body {
 .game__view {
   width: 100%;
   text-align: center;
-  padding: 2rem;
+  padding: 1rem;
   vertical-align: middle;
   display: flex;
   flex-direction: column;
@@ -301,19 +303,19 @@ body {
 .player__details {
   width: 60%;
   background-image: var(--gradient-2);
-  padding: 2rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
 }
 .player__details > *:not(:last-child) {
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.25rem;
 }
 .player__details .players__form {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  gap: 1rem;
 }
 .player__details .players__form .player {
   display: flex;
@@ -333,22 +335,11 @@ body {
           text-decoration: italic;
   font-size: 0.7rem;
 }
-.player__details .players__form .player label {
-  transform: translateY(1rem);
-  transition: var(--transition);
-  text-align: left;
-}
 .player__details .players__form .player input:active,
 .player__details .players__form .player input:focus,
 .player__details .players__form .player select:active,
 .player__details .players__form .player select:focus {
   border: 1px solid var(--secondary-color);
-}
-.player__details .players__form .player input:active label,
-.player__details .players__form .player input:focus label,
-.player__details .players__form .player select:active label,
-.player__details .players__form .player select:focus label {
-  transform: translateY(-1rem);
 }
 .player__details .game__start {
   grid-column: 1/-1;
@@ -357,13 +348,27 @@ body {
   align-self: center;
 }
 
+.player-color {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  justify-content: center;
+}
+.player-color > *:first-child {
+  margin-right: auto;
+}
+.player-color > *:first-child::after {
+  content: ":";
+  margin-left: 0.5rem;
+}
+
 .players__display {
   width: 80vw;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 .players__display > * {
   justify-self: end;
@@ -373,7 +378,7 @@ body {
 }
 .players__display > *:last-child {
   width: 40%;
-  margin-top: 2rem;
+  margin-top: 1rem;
   grid-column: 1/-1;
   justify-self: center;
   align-content: center;
@@ -386,14 +391,19 @@ body {
   fill: #fff;
 }
 
+.player-logo {
+  position: fixed;
+  top: 10%;
+}
+
 .board__dimensions {
   width: 80%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-column: 1/-1;
-  gap: 2rem;
+  gap: 1rem;
   justify-self: center;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 .board__dimensions > *:first-child {
   grid-column: 1/-1;
@@ -409,7 +419,7 @@ body {
   border-radius: 0.5rem;
   text-align: center;
   text-transform: uppercase;
-  font-size: 2rem;
+  font-size: 1rem;
 }
 .board__dimensions label {
   transform: translateY(1rem);
@@ -419,10 +429,10 @@ body {
 
 .btn-box {
   position: absolute;
-  bottom: 5%;
+  bottom: 2%;
   left: 50%;
   transform: translateX(-50%);
-  width: 50%;
+  width: 80%;
   display: flex;
   align-items: center;
 }
@@ -437,8 +447,8 @@ body {
   align-items: center;
 }
 .winner-box h3 {
-  margin-top: 2rem;
-  padding: 1rem 2rem;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 5px;
   background-image: linear-gradient(120deg, var(--light-color), var(--dark-color));
   text-transform: capitalize;

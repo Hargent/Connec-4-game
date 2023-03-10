@@ -210,7 +210,7 @@ class PlayerView {
 	// GENERATORS
 	_generateBoardHtml() {
 		return `<div class="players__display">
-					<div>
+					<div class="player-logo">
 						<div>
 							<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 								class="player__icon home-icon"
@@ -224,7 +224,7 @@ class PlayerView {
 						<h1>${this._data.home.name !== "" ? this._data.home.name : this._data.home.id}
 						
 					</div>
-					<div>
+					<div class="player-logo">
 						<div>
 							<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 								class="player__icon away-icon"
@@ -282,11 +282,11 @@ class PlayerView {
 						id="player-1-name"
 						placeholder="Enter your name" />
 					<label for="player-1-name"></label>
-					<div>
+					<div class="player-color">
 						<label for="player-1-color">Color</label>
 						<select  id="player-1-color" title="Select" name="homeColor">
 							<option value="purple">Purple</option>
-							<option value="red">Red</option>
+							<option value="red">crimson</option>
 							<option value="maroon">Maroon</option>
 							<option value="indigo">Indigo</option>
 							<option value="cyan">Cyan</option>
@@ -304,13 +304,13 @@ class PlayerView {
 						id="player-2-name"
 						placeholder="Enter your name" />
 					<label for="player-2-name"></label>
-					<div>
-					<label for="player-2-color">Color</label>
-					<select  id="player-2-color" title="Select" name="awayColor">
+					<div class="player-color">
+						<label for="player-2-color">Color</label>
+						<select  id="player-2-color" title="Select" name="awayColor">
 							<option value="gold">Gold</option>
 							<option value="magenta">Magenta</option>
 							<option value="green">Green</option>
-							<option value="yellow">Yellow</option>
+							<option value="yellow">olive</option>
 							<option value="blue">Blue</option>
 						</select>
 					</div>
@@ -358,6 +358,5 @@ class PlayerView {
 			`;
 	}
 }
-
 
 export default new PlayerView();
