@@ -394,6 +394,7 @@ body {
 .player-logo {
   position: fixed;
   top: 10%;
+  text-transform: capitalize;
 }
 
 .board__dimensions {
