@@ -2,7 +2,7 @@
 	"name": "connect-4",
 	"version": "1.0.0",
 	"description": "Chingu project",
-	"default": "index.js",
+	"default": "index.html",
 	"scripts": {
 		"parse": "parcel index.html",
 		"build": "parcel build index.html --dist-dir ./dist"
