@@ -1,4 +1,14 @@
-export default v = colorStr => {
+/**
+ *
+ * @param {string} str color string
+ * @returns color hex code
+ */
+const standardizeColor = str => {
+	let ctx = document.createElement("canvas").getContext("2d");
+	ctx.fillStyle = str;
+	return ctx.fillStyle;
+};
+const convertColor = colorStr => {
 	const colorInHEX = standardizeColor(colorStr);
 
 	const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(colorInHEX);
@@ -49,14 +59,4 @@ export default v = colorStr => {
 		hsl: colorInHSL,
 	};
 };
-
-/**
- *
- * @param {string} str color string
- * @returns color hex code
- */
-const standardizeColor = str => {
-	var ctx = document.createElement("canvas").getContext("2d");
-	ctx.fillStyle = str;
-	return ctx.fillStyle;
-};
+export default convertColor;
