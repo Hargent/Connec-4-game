@@ -49,7 +49,7 @@ class GameView {
 	// RENDERS
 	renderStart() {
 		this._clear();
-		const HTML = this._generateStartHtml();
+		const HTML = this._generateStartHtml(imageName);
 
 		this._parentElement.insertAdjacentHTML("afterbegin", HTML);
 	}
@@ -76,8 +76,7 @@ class GameView {
 	_generateBoardHTML() {
 		const labels = this._data.data.labels;
 
-		const html_1 = `
-							<section class="board">
+		const html_1 = `<section class="board">
 								<div class="cursor-dot-outline"></div>
 								<div class="cursor-dot"></div>
 								<h3 class="board__title">${this._data.data.dimensions[0]} X ${this._data.data.dimensions[1]} board
@@ -96,25 +95,21 @@ class GameView {
 			})
 			.join("");
 
-		const html_3 = `
-						</section>`;
+		const html_3 = `</section>`;
 		const HTML = [html_1, html_2, html_3].join("");
 		return HTML;
 	}
 
-	_generateStartHtml() {
-		const html = `
-		<div class="game__view">
+	_generateStartHtml(imageSrc) {
+		const markup = `<div class="game__view">
 						<h1>Welcome to connect 4</h1>
 						<h4>Ready to battle ?</h4>
-						<img src="../../assets/connect4.gif" alt="Connect 4">
+						<img src='${imageSrc}' alt="Connect 4">
 						
 						<button type="submit" class="btn play__now">Play now</button>
-					</div>
-				`;
-
-		return html;
+					</div>`;
+		return markup;
 	}
 }
-// <img src=${imageName} alt="Connect 4">
+
 export default new GameView();

@@ -269,8 +269,7 @@ class PlayerView {
 				</div>`;
 	}
 	_generateHtml() {
-		return `
-		<div class="player__details">
+		return `<div class="player__details">
 		<h1>Enter Players' details</h1>
 			<form class="players__form">
 				<div class="player player1">
