@@ -1,7 +1,7 @@
 //SECTION - IMPORTS
 
 import imageName from "../../assets/connect4.gif";
-import infoIcon from "../../css/icons8-info.svg";
+import infoIcon from "../img/icons8-info.svg";
 
 class GameView {
 	_parentElement = document.querySelector(".game");
