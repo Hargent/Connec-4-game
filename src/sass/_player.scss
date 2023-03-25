@@ -16,7 +16,13 @@
 		grid-template-columns: repeat(2, 1fr);
 
 		gap: 1rem;
+		@media only screen and (max-width: 600px) {
+			width: 100%;
+			grid-template-columns: 1fr;
+			gap: 0.5rem;
 
+			align-self: center;
+		}
 		.player {
 			// display: grid;
 			// grid-template-rows: auto;
@@ -25,6 +31,11 @@
 			flex-direction: column;
 			align-items: center;
 			row-gap: 1rem;
+			@media only screen and (max-width: 600px) {
+				width: 60%;
+				align-items: stretch;
+				justify-self: center;
+			}
 			input,
 			select {
 				padding: 0.5rem 0;
@@ -59,13 +70,29 @@
 	display: flex;
 	align-items: center;
 
-	width: 50%;
+	width: 40%;
 	justify-content: center;
 	& > *:first-child {
 		margin-right: auto;
 		&::after {
 			content: ":";
 			margin-left: 0.5rem;
+			margin-right: 0.5rem;
+		}
+	}
+	@media only screen and (max-width: 600px) {
+		align-items: stretch;
+		width: 60%;
+		justify-self: center;
+
+		align-self: center;
+		& > *:first-child {
+			margin-right: auto;
+			&::after {
+				content: ":";
+				margin-left: 0.5rem;
+				margin-left: 0.5rem;
+			}
 		}
 	}
 }
@@ -77,6 +104,7 @@
 	align-items: center;
 	justify-content: center;
 	margin-bottom: 1rem;
+
 	& > * {
 		justify-self: end;
 	}
@@ -116,6 +144,11 @@
 	justify-self: center;
 
 	margin-top: 1rem;
+	@media only screen and (max-width: 600px) {
+		grid-template-columns: 1fr;
+		width: 60%;
+		align-self: center;
+	}
 	& > *:first-child {
 		grid-column: 1/-1;
 		width: 70%;

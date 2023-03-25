@@ -9,6 +9,10 @@
 	opacity: 0;
 	transform: translate(-50%, -50%);
 	transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+	@media (hover: none) {
+		opacity: 0;
+		visibility: hidden;
+	}
 }
 
 .cursor-dot {
@@ -16,6 +20,10 @@
 	width: $size;
 	height: $size;
 	background-color: var(--cursor-primary);
+	@media (hover: none) {
+		opacity: 0;
+		visibility: hidden;
+	}
 }
 
 .cursor-dot-outline {
@@ -24,4 +32,8 @@
 	height: $size;
 
 	background-color: customLighten(--cursor-primary-light, 30);
+	@media (hover: none) {
+		opacity: 0;
+		visibility: hidden;
+	}
 }

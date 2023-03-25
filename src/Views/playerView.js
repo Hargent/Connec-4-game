@@ -102,7 +102,12 @@ class PlayerView {
 		let content = "";
 
 		if (data.winner !== null) {
-			content = `${data.winner} Wins`;
+			console.log(data.winner);
+			if (data.winner !== "draw") {
+				content = `${data.winner} Wins`;
+			} else {
+				content = `Draw`;
+			}
 
 			winnerFlag.classList.toggle("hidden");
 			winnerFlag.classList.toggle(data.winner);
