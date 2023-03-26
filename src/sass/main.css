@@ -138,6 +138,11 @@
   	var(--secondary-color)
   );
   --gradient-2: linear-gradient(to bottom right, #e4ff1a, #6eeb83);
+  --gradient-3: linear-gradient(
+  	to bottom right,
+  	var(--secondary-color),
+  	var(--primary-color-dark)
+  );
   --transition: all 0.5s;
   --shadow: 0.4;
   --home-color: #ff0000;
@@ -214,7 +219,7 @@ body {
   text-align: center;
   line-height: 1rem;
   font-size: 1rem;
-  background-color: red;
+  background-color: #eee;
   border-radius: 0.5rem;
   width: 20%;
   -webkit-hyphens: auto;
@@ -224,6 +229,9 @@ body {
   top: 4rem;
   right: 1rem;
   transition: var(--transition);
+}
+.info-message > * {
+  color: #000;
 }
 .info-message > *:last-child {
   padding-top: 0.5rem;

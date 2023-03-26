@@ -12,6 +12,11 @@
 		var(--secondary-color)
 	);
 	--gradient-2: linear-gradient(to bottom right, #e4ff1a, #6eeb83);
+	--gradient-3: linear-gradient(
+		to bottom right,
+		var(--secondary-color),
+		var(--primary-color-dark)
+	);
 	--transition: all 0.5s;
 	--shadow: 0.4;
 

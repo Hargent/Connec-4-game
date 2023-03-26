@@ -52,7 +52,7 @@ const controlGamePlay = target => {
 	model.gameStatus();
 
 	if (model.state.game.isEnd) {
-		console.log("Game over");
+		// console.log("Game over");
 		playerView.updateWinner(model.state.players);
 		return;
 	}
@@ -95,5 +95,3 @@ const init = () => {
 };
 
 init();
-
-

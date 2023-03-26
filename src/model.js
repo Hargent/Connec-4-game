@@ -3,6 +3,7 @@ const state = {
 		data: {
 			create: false,
 			dimensions: [6, 7],
+			newInput: [],
 			labels: [],
 			combos: [],
 			pieces: "",
@@ -98,9 +99,9 @@ const isCOntains = (arr, chk) => {
  */
 const saveInputs = target => {
 	if (state.game.isEnd) return;
-	const isSaved = state.players.homeTurn
-		? isCOntains(state.players.home.inputs, target)
-		: isCOntains(state.players.away.inputs, target);
+	const isSaved =
+		isCOntains(state.players.home.inputs, target) ||
+		isCOntains(state.players.away.inputs, target);
 
 	if (isSaved) {
 		state.players.homeTurn = state.players.homeTurn;

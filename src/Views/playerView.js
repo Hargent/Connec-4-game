@@ -102,7 +102,6 @@ class PlayerView {
 		let content = "";
 
 		if (data.winner !== null) {
-			console.log(data.winner);
 			if (data.winner !== "draw") {
 				content = `${data.winner} Wins`;
 			} else {
@@ -162,7 +161,9 @@ class PlayerView {
 					.split(",")
 					.map(str => parseInt(str));
 
+				// if (disc.dataset.clicked === true) return;
 				handler(target);
+				// disc.dataset.clicked = true;
 			} catch (err) {
 				console.error(err);
 			}
@@ -256,12 +257,12 @@ class PlayerView {
 					 ${
 							!this._data.homeTurn
 								? this._data.home.name === ""
-									? this._data.home.id
+									? `${this._data.home.id} player`
 									: this._data.home.name
 								: this._data.away.name === ""
-								? this._data.away.id
+								? `${this._data.away.id} player`
 								: this._data.away.name
-						} player
+						}
 					, please select a coin</h3>
 						</div>
 						<div class="btn-box">

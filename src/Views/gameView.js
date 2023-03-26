@@ -109,7 +109,7 @@ class GameView {
 			.map((label, index) => {
 				return `<div class="">
 							<h5>[${label}]</h5>
-							<div type="button" class="board__disc " data-position=${label[0]},${label[1]}>
+							<div type="button" class="board__disc " data-position=${label[0]},${label[1]} data-clicked=false>
 								<div class="body-exp"></div>
 								<div class="depth--exp"></div>
 							</div>
