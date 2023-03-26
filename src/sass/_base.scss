@@ -8,6 +8,7 @@
 
 html {
 	box-sizing: border-box;
+
 	font-size: 87.5%; //1rem= 16px
 	@media only screen and (min-width: 90em) {
 		font-size: 120%;
@@ -32,6 +33,7 @@ body {
 	min-height: 100vh;
 	max-height: max-content;
 	position: relative;
+	font-family: Nurito-Regular;
 }
 .info {
 	&-icon {
@@ -52,6 +54,7 @@ body {
 		text-align: center;
 		line-height: 1rem;
 		font-size: 1rem;
+		font-family: Nurito-Light;
 
 		background-color: #eee;
 
@@ -75,6 +78,7 @@ body {
 		& > *:last-child {
 			padding-top: 0.5rem;
 			color: blue;
+			font-family: Nurito-Italic;
 		}
 	}
 }

@@ -162,6 +162,26 @@
   --query-away-color-l: 56%;
 }
 
+@font-face {
+  font-family: Nurito-Black;
+  src: url("../../css/Nunito_Sans/NunitoSans-Black.ttf");
+}
+@font-face {
+  font-family: Nurito-Bold;
+  src: url("../../css/Nunito_Sans/NunitoSans-Bold.ttf");
+}
+@font-face {
+  font-family: Nurito-Light;
+  src: url("../../css/Nunito_Sans/NunitoSans-Light.ttf");
+}
+@font-face {
+  font-family: Nurito-Regular;
+  src: url("../../css/Nunito_Sans/NunitoSans-Regular.ttf");
+}
+@font-face {
+  font-family: Nurito-Italic;
+  src: url("../../css/Nunito_Sans/NunitoSans-Italic.ttf");
+}
 *,
 *::before,
 *::after {
@@ -202,6 +222,7 @@ body {
   max-height: -moz-max-content;
   max-height: max-content;
   position: relative;
+  font-family: Nurito-Regular;
 }
 
 .info-icon {
@@ -219,6 +240,7 @@ body {
   text-align: center;
   line-height: 1rem;
   font-size: 1rem;
+  font-family: Nurito-Light;
   background-color: #eee;
   border-radius: 0.5rem;
   width: 20%;
@@ -236,6 +258,7 @@ body {
 .info-message > *:last-child {
   padding-top: 0.5rem;
   color: blue;
+  font-family: Nurito-Italic;
 }
 
 .board {
@@ -338,6 +361,21 @@ body {
 }
 .game__view img {
   width: 40%;
+}
+.game__view h1 {
+  font-family: Nurito-Bold;
+  background-image: var(--gradient);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
+.game__view h4 {
+  background-image: var(--gradient-3);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  font-family: Nurito-Italic;
+  font-size: 1.25rem;
 }
 
 .winner-flag {

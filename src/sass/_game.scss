@@ -23,6 +23,19 @@
 		img {
 			width: 40%;
 		}
+		h1 {
+			font-family: Nurito-Bold;
+			background-image: var(--gradient);
+			background-clip: text;
+			color: transparent;
+		}
+		h4 {
+			background-image: var(--gradient-3);
+			background-clip: text;
+			color: transparent;
+			font-family: Nurito-Italic;
+			font-size: 1.25rem;
+		}
 	}
 }
 .winner-flag {

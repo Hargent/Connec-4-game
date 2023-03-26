@@ -43,6 +43,26 @@
 	--query-away-color-s: 90%;
 	--query-away-color-l: 56%;
 }
+@font-face {
+	font-family: Nurito-Black;
+	src: url("../../css/Nunito_Sans/NunitoSans-Black.ttf");
+}
+@font-face {
+	font-family: Nurito-Bold;
+	src: url("../../css/Nunito_Sans/NunitoSans-Bold.ttf");
+}
+@font-face {
+	font-family: Nurito-Light;
+	src: url("../../css/Nunito_Sans/NunitoSans-Light.ttf");
+}
+@font-face {
+	font-family: Nurito-Regular;
+	src: url("../../css/Nunito_Sans/NunitoSans-Regular.ttf");
+}
+@font-face {
+	font-family: Nurito-Italic;
+	src: url("../../css/Nunito_Sans/NunitoSans-Italic.ttf");
+}
 // $bp-large: 78.15em; // 1250px
 // $bp-medium: 61.25em; // 980px
 // $bp-small: 37.5em; // 600px
