@@ -254,16 +254,19 @@ class PlayerView {
 							</div>
 						
 							<h3 class="current__Player">
-					 ${
-							!this._data.homeTurn
-								? this._data.home.name === ""
-									? `${this._data.home.id} player`
-									: this._data.home.name
-								: this._data.away.name === ""
-								? `${this._data.away.id} player`
-								: this._data.away.name
-						}
-					, please select a coin</h3>
+							<span>
+							${
+								!this._data.homeTurn
+									? this._data.home.name === ""
+										? `${this._data.home.id} player`
+										: this._data.home.name
+									: this._data.away.name === ""
+									? `${this._data.away.id} player`
+									: this._data.away.name
+							}
+					, please select a coin
+							</span>
+					 </h3>
 						</div>
 						<div class="btn-box">
 							<button class="btn reset__game" type="button" data-toggle="reset">Reset Game</button>

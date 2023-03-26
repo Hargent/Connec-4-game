@@ -215,6 +215,13 @@
 			var(--light-color),
 			var(--dark-color)
 		);
+
 		text-transform: capitalize;
+
+		span {
+			background-image: var(--gradient-4);
+			background-clip: text;
+			color: transparent;
+		}
 	}
 }
